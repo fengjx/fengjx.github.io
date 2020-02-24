@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java8 on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/java8/</link>
+    <description>Recent content in java8 on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 15 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/java8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>新的Date&amp;Time API</title>
+      <link>https://blog.fengjx.com/java/java8/date/</link>
+      <pubDate>Thu, 15 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/java8/date/</guid>
+      <description>java8之前的日期相关对象中存在的问题： 非线程安全，例如：SimpleDateFormat, Calendar, TimeZone 设计不合理：java.util和java.</description>
+    </item>
+    
+    <item>
+      <title>Stream（流）</title>
+      <link>https://blog.fengjx.com/java/java8/stream/</link>
+      <pubDate>Wed, 14 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/java8/stream/</guid>
+      <description>什么是Stream Java8添加了一个新的接口Stream（流），可以用函数式风格对数据进行处理。就像写sql语句一样。 流处理过程 +--------+ +--------+ +--------+ | 创</description>
+    </item>
+    
+    <item>
+      <title>方法引用</title>
+      <link>https://blog.fengjx.com/java/java8/method-ref/</link>
+      <pubDate>Tue, 13 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/java8/method-ref/</guid>
+      <description>方法引用可以使用操作符“::”来应用已有方法的处理逻辑。简化代码和复用代码逻辑。 方法引用包括几种方式： 构造器引用: Class::new 静态方法引用: Class::staticMethod 实例方法</description>
+    </item>
+    
+    <item>
+      <title>Lambda表达式与函数式接口</title>
+      <link>https://blog.fengjx.com/java/java8/lambda-function/</link>
+      <pubDate>Mon, 12 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/java8/lambda-function/</guid>
+      <description>Lambda表达式 java8中引入了Lambda表达式是函数式接口的一个匿名函数定义实现类，类似js里的闭包。 Lambda可以大大简化函数式</description>
+    </item>
+    
+  </channel>
+</rss>

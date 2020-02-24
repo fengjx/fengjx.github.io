@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/posts/</link>
+    <description>Recent content in Posts on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>curl参数详解</title>
+      <link>https://blog.fengjx.com/curl/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/curl/</guid>
+      <description>curl参数详解 Common Options -#, --progress-bar Make curl display a simple progress bar instead of the more informational standard meter. -b, --cookie &amp;lt;name=data&amp;gt; Supply cookie with request. If no =, then specifies the cookie file to use (see -c). -c, --cookie-jar &amp;lt;file name&amp;gt; File to save response cookies to. -d, --data &amp;lt;data&amp;gt; Send specified data in POST request. Details provided below. -f, --fail Fail</description>
+    </item>
+    
+    <item>
+      <title>npm -&gt; yarn命令对照</title>
+      <link>https://blog.fengjx.com/npm-yarn/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/npm-yarn/</guid>
+      <description>npm -&amp;gt; yarn命令对照 npm(v5) yarn 说明 npm install yarn install - (N/A) yarn install &amp;ndash;flat - (N/A) yarn install &amp;ndash;har - npm install &amp;ndash;no-package-lock yarn install &amp;ndash;no-lockfile - (N/A) yarn install &amp;ndash;pure-lockfile - npm install [package] &amp;ndash;save yarn add [package] - npm install [package] &amp;ndash;save-dev yarn add [package] &amp;ndash;dev - (N/A) yarn add [package] &amp;ndash;peer - npm install [package] &amp;ndash;save-optional yarn add</description>
+    </item>
+    
+    <item>
+      <title>manjaro安装docker</title>
+      <link>https://blog.fengjx.com/manjaro-install-docker/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/manjaro-install-docker/</guid>
+      <description>install # 安装 sudo pacman -S docker # 启动docker sudo systemctl start docker # 查看状态 sudo systemctl status docker # 设置开启启动 sudo systemctl enable docker</description>
+    </item>
+    
+    <item>
+      <title>manjaro安装MySQL</title>
+      <link>https://blog.fengjx.com/manjaro-install-mysql/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/manjaro-install-mysql/</guid>
+      <description># 安装 ➜ ~ sudo pacman -S mysql # 初始化MySQL # root@localhost: fip6sD,Et)_&amp;amp;，会输出root初始密码 ➜ ~ sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql 2019-10-28T17:26:22.653266Z 0 [Warning] [MY-010915] [Server] &amp;#39;NO_ZERO_DATE&amp;#39;, &amp;#39;NO_ZERO_IN_DATE&amp;#39; and &amp;#39;ERROR_FOR_DIVISION_BY_ZERO&amp;#39; sql modes should be used</description>
+    </item>
+    
+    <item>
+      <title>Mac 键盘快捷键</title>
+      <link>https://blog.fengjx.com/mac-keymap/</link>
+      <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mac-keymap/</guid>
+      <description>Mac 键盘快捷键 按键符号对照 Command（或 Cmd）⌘ Shift ⇧ Option（或 Alt）⌥ Control（或 Ctrl）⌃ Caps Lock ⇪ 剪切、拷贝、粘贴和其他</description>
+    </item>
+    
+    <item>
+      <title>ffmpeg下载m3u8直播流</title>
+      <link>https://blog.fengjx.com/ffmpeg-download-m3u8/</link>
+      <pubDate>Sat, 10 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/ffmpeg-download-m3u8/</guid>
+      <description>ffmpeg下载m3u8直播流 ffmpeg -i http://www.abc.com/aaa.m3u8 &amp;quot;filename.mp4&amp;quot;</description>
+    </item>
+    
+    <item>
+      <title>ffmpeg合并视频文件</title>
+      <link>https://blog.fengjx.com/ffmpeg-merge-video/</link>
+      <pubDate>Sat, 10 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/ffmpeg-merge-video/</guid>
+      <description>ffmpeg合并视频文件，对于 MPEG 格式的视频，可以直接连接： ffmpeg -i &amp;quot;concat:input1.mpg|input2.mpg|input3.mpg&amp;quot; -c copy output.mpg 对于非 MPEG 格式容器，但是是 MPEG 编码器（H.264、DivX、XviD、MP</description>
+    </item>
+    
+    <item>
+      <title>mac下使用supervisor</title>
+      <link>https://blog.fengjx.com/mac-supervisor/</link>
+      <pubDate>Sun, 10 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mac-supervisor/</guid>
+      <description>mac下使用supervisor 安装 使用brew进行 安装 $ brew install supervisor ==&amp;gt; Downloading http://7xkcej.dl1.z0.glb.clouddn.com/bottles/supervisor-3.3.1.sierra.bottle.tar.gz ######################################################################## 100.0% ==&amp;gt; Pouring supervisor-3.3.1.sierra.bottle.tar.gz ==&amp;gt; Using the sandbox ==&amp;gt; Caveats To have launchd start supervisor now and restart at login: brew services start supervisor Or, if you don&amp;#39;t want/need a background service you can</description>
+    </item>
+    
+    <item>
+      <title>提问的智慧</title>
+      <link>https://blog.fengjx.com/how-to-ask-questions-the-smart-way/</link>
+      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/how-to-ask-questions-the-smart-way/</guid>
+      <description>How To Ask Questions The Smart Way Copyright © 2001,2006,2014 Eric S. Raymond, Rick Moen 本指南英文版版权为 Eric S. Raymond, Rick Moen 所有。 原文网址：http://www.catb.org/~esr/faqs/sma</description>
+    </item>
+    
+    <item>
+      <title>chrome离线安装包下载</title>
+      <link>https://blog.fengjx.com/chrome-download/</link>
+      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/chrome-download/</guid>
+      <description>最新稳定版： https://www.google.com/intl/zh-CN/chrome/browser/?standalone=1 最新测试版： https://www.google.com/intl/zh-CN/chrome/browser/?standalone=1&amp;amp;extra=betachannel 最新开发版： https://www.google.com/intl/zh-CN/chrome/browser/?standalone=1&amp;amp;extra=devchannel 另外,在ubuntu下可以安装chromium sudo add-apt-repository ppa:chromium-daily sudo apt-get update sudo apt-get install chromium-browser</description>
+    </item>
+    
+    <item>
+      <title>ubuntu下彻底卸载LibreOffice方法</title>
+      <link>https://blog.fengjx.com/ubuntu-uninstall-libreoffice/</link>
+      <pubDate>Fri, 21 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/ubuntu-uninstall-libreoffice/</guid>
+      <description>sudo apt-get purge libreoffice? 或 sudo aptitude purge libreoffice? 不要漏掉通配符“?”，否则无法清除/卸载全部 LibreOffice 软件包 或者 sudo apt-get remove --purge libreoffice*</description>
+    </item>
+    
+    <item>
+      <title>Git 常用命令</title>
+      <link>https://blog.fengjx.com/git/</link>
+      <pubDate>Wed, 10 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/git/</guid>
+      <description>Git常用操作命令： 1) 远程仓库相关命令 # 检出仓库： $ git clone git://github.com/jquery/jquery.git #查看远程仓库： $ git remote -v # 添加远程仓库： $ git remote add [name] [url] # 删除远程仓库： $ git remote rm [name] # 修</description>
+    </item>
+    
+    <item>
+      <title>git-flow工作流程</title>
+      <link>https://blog.fengjx.com/git-flow/</link>
+      <pubDate>Wed, 10 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/git-flow/</guid>
+      <description>git-flow工作流程 当在团队开发中使用版本控制系统时，商定一个统一的工作流程是至关重要的。Git 的确可以在各个方面做很多事情，然而，如果</description>
+    </item>
+    
+    <item>
+      <title> command not found 解决办法</title>
+      <link>https://blog.fengjx.com/shell-command-not-found/</link>
+      <pubDate>Sun, 10 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/shell-command-not-found/</guid>
+      <description>\r command not found 解决办法 当我们执行shell脚本的时候提示&amp;rsquo;\r&amp;rsquo;: command not found，但是检查了很多次并没有发现什么问题。 原因</description>
+    </item>
+    
+  </channel>
+</rss>

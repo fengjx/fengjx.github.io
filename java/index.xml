@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/java/</link>
+    <description>Recent content in Java on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 19 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>java虚拟机</title>
+      <link>https://blog.fengjx.com/java/jvm/</link>
+      <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/jvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java8新特性</title>
+      <link>https://blog.fengjx.com/java/java8/</link>
+      <pubDate>Thu, 15 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/java8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java并发编程</title>
+      <link>https://blog.fengjx.com/java/concurrent/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/concurrent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java网络编程</title>
+      <link>https://blog.fengjx.com/java/socket/</link>
+      <pubDate>Mon, 10 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/socket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/code/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/code/readme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/collections/concurrenthashmap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/collections/concurrenthashmap/</guid>
+      <description>ConcurrentHashMap 1.7实现：Segment(分段锁) + ReentranLock。value使用volatile修饰，get时不需要加锁。put需要加锁。 1</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/collections/hashmap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/collections/hashmap/</guid>
+      <description>HashMap </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/other/alioss-maven-plugin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/other/alioss-maven-plugin/</guid>
+      <description>阿里云oss的maven上传插件 阿里云oss上传插件，用于上传cdn文件（js、css、图片等） example1, 上传源码路径 &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;com.fengjx.maven.cdn&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;maven-cdn-alioss-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.0.0&amp;lt;/version&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;endpoint&amp;gt;http://oss-cn-shenzhen.aliyuncs.com&amp;lt;/endpoint&amp;gt; &amp;lt;accessKeyId&amp;gt;xxxxx&amp;lt;/accessKeyId&amp;gt; &amp;lt;accessKeySecret&amp;gt;xxxxxx&amp;lt;/accessKeySecret&amp;gt; &amp;lt;!-- 上传的Buc</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/other/lombok/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/other/lombok/</guid>
+      <description>lombok用法 使用lombok可以简化很多java代码，其原理是在代码编译的时候修改字节码，自动帮我们加上一些代码，完全遵循java语法。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/other/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/other/readme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/patterns/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/patterns/readme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/reactor/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/reactor/readme/</guid>
+      <description>Reactor https://www.ibm.com/developerworks/cn/java/j-cn-with-reactor-response-encode/index.html</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/reactor/spring-webflux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/reactor/spring-webflux/</guid>
+      <description>spring-webflux https://docs.spring.io/spring/docs/5.0.0.RELEASE/spring-framework-reference/web-reactive.html
+https://springcloud.cc/web-reactive.html#webflux-config-message-codecs</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/java/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/readme/</guid>
+      <description>java 教程 java-tutorial-java-ee-tutorials</description>
+    </item>
+    
+  </channel>
+</rss>

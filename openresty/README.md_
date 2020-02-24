@@ -1,0 +1,27 @@
+# openresty
+
+### install 
+```bash
+brew install openresty/brew/openresty
+```
+
+```bash
+openresty-openssl is keg-only, which means it was not symlinked into /usr/local,
+because only for use with OpenResty.
+
+If you need to have openresty-openssl first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openresty-openssl/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find openresty-openssl you may need to set:
+  export LDFLAGS="-L/usr/local/opt/openresty-openssl/lib"
+  export CPPFLAGS="-I/usr/local/opt/openresty-openssl/include"
+
+For pkg-config to find openresty-openssl you may need to set:
+  export PKG_CONFIG_PATH="/usr/local/opt/openresty-openssl/lib/pkgconfig"
+
+==> openresty
+To have launchd start openresty/brew/openresty now and restart at login:
+  brew services start openresty/brew/openresty
+Or, if you don't want/need a background service you can just run:
+  openresty
+```

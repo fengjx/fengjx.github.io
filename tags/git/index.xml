@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/git/</link>
+    <description>Recent content in git on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 10 Aug 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git 常用命令</title>
+      <link>https://blog.fengjx.com/git/</link>
+      <pubDate>Wed, 10 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/git/</guid>
+      <description>Git常用操作命令： 1) 远程仓库相关命令 # 检出仓库： $ git clone git://github.com/jquery/jquery.git #查看远程仓库： $ git remote -v # 添加远程仓库： $ git remote add [name] [url] # 删除远程仓库： $ git remote rm [name] # 修</description>
+    </item>
+    
+    <item>
+      <title>git-flow工作流程</title>
+      <link>https://blog.fengjx.com/git-flow/</link>
+      <pubDate>Wed, 10 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/git-flow/</guid>
+      <description>git-flow工作流程 当在团队开发中使用版本控制系统时，商定一个统一的工作流程是至关重要的。Git 的确可以在各个方面做很多事情，然而，如果</description>
+    </item>
+    
+  </channel>
+</rss>

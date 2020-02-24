@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zookeepers on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/zookeeper/</link>
+    <description>Recent content in Zookeepers on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 20 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/zookeeper/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>zookeeper介绍</title>
+      <link>https://blog.fengjx.com/zookeeper/introduce/</link>
+      <pubDate>Sat, 20 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/zookeeper/introduce/</guid>
+      <description>zookeeper是什么 高性能分布式数据一致性解决方案。 基本概念 集群角色 leader: 负责进行投票的发起和决议，更新系统状态 follower: 接收客户端请求并想客户端返</description>
+    </item>
+    
+    <item>
+      <title>zookeeper经典使用场景</title>
+      <link>https://blog.fengjx.com/zookeeper/case/</link>
+      <pubDate>Sat, 20 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/zookeeper/case/</guid>
+      <description>leader选举 场景：某个服务有多个worker服务，当其中一个服务挂掉后，其他worker能够自动接替任务继续执行，解决服务单点问题。例如</description>
+    </item>
+    
+  </channel>
+</rss>

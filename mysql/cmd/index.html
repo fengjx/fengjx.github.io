@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        mysql常用命令整理 - 冯小小，一个开发者
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="[干货]mysql常用命令整理" />
+  <meta name="generator" content="Hugo 0.65.3 with theme pure" />
+  <title>mysql常用命令整理 - 冯小小，一个开发者</title>
+  
+
+  <link rel="stylesheet" href="https://blog.fengjx.com/css/style.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <meta property="og:title" content="mysql常用命令整理" />
+<meta property="og:description" content="[干货]mysql常用命令整理" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.fengjx.com/mysql/cmd/" />
+<meta property="article:published_time" content="2019-11-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-10T00:00:00+00:00" /><meta property="og:see_also" content="https://blog.fengjx.com/mysql/mycli/" /><meta property="og:see_also" content="https://blog.fengjx.com/mysql/specification/" />
+
+<meta itemprop="name" content="mysql常用命令整理">
+<meta itemprop="description" content="[干货]mysql常用命令整理">
+<meta itemprop="datePublished" content="2019-11-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1472">
+
+
+
+<meta itemprop="keywords" content="mysql," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mysql常用命令整理"/>
+<meta name="twitter:description" content="[干货]mysql常用命令整理"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+  <body class="main-center" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/fengjx" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.fengjx.com/4881720.jpg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">冯小小，一个开发者</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>GuangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">分类</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">标签</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-post">
+                <a href="/posts">
+                    <i class="icon icon-list"></i>
+                  <span class="menu-title">其他</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-links">
+                <a href="/links">
+                    <i class="icon icon-friendship"></i>
+                  <span class="menu-title">友链</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello developer</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/java/" class="category-list-link">java</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="category-list-link">linux常用命令</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/mysql/" class="category-list-link">mysql</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/tools/" class="category-list-link">tools</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%85%B6%E4%BB%96/" class="category-list-link">其他</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-list-link">微服务</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/curl/" class="tag-list-link">curl</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/eclipse/" class="tag-list-link">eclipse</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ffmpeg/" class="tag-list-link">ffmpeg</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/git/" class="tag-list-link">git</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/google/" class="tag-list-link">google</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/index/" class="tag-list-link">index</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/io/" class="tag-list-link">io</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/java8/" class="tag-list-link">java8</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/jvm/" class="tag-list-link">jvm</a><span
+                    class="tag-list-count">5</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/libreoffice/" class="tag-list-link">libreoffice</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/manjaro/" class="tag-list-link">manjaro</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mysql/" class="tag-list-link">mysql</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/netty/" class="tag-list-link">netty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/npm/" class="tag-list-link">npm</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/openresty/" class="tag-list-link">openresty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/socket/" class="tag-list-link">socket</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/supervisor/" class="tag-list-link">supervisor</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ububtu/" class="tag-list-link">ububtu</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/yarn/" class="tag-list-link">yarn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/zookeeper/" class="tag-list-link">zookeeper</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="tag-list-link">多线程</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+  <aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+    <div class="slimContent">
+      <nav id="toc" class="article-toc">
+        <h3 class="toc-title">文章目录</h3>
+        <div class="toc-content always-active"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#连接mysql-server">连接mysql server</a></li>
+    <li><a href="#dcl">DCL</a></li>
+    <li><a href="#ddl">DDL</a></li>
+    <li><a href="#information_schema">INFORMATION_SCHEMA</a>
+      <ul>
+        <li><a href="#查看所有非系统表超过200mb占用磁盘空间情况">查看所有非系统表（超过200MB）占用磁盘空间情况</a></li>
+        <li><a href="#查找持续时间超过-60s-的事务">查找持续时间超过 60s 的事务</a></li>
+      </ul>
+    </li>
+    <li><a href="#查看mysql进程会话情况">查看mysql进程会话情况</a></li>
+    <li><a href="#查看系统参数">查看系统参数</a></li>
+  </ul>
+</nav>
+        </div>
+      </nav>
+    </div>
+  </aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/mysql/cmd/"
+    >mysql常用命令整理</a
+  >
+</h1>
+
+      <div class="article-meta">
+        <span class="article-date">
+  <i class="icon icon-calendar-check"></i>
+<a href="https://blog.fengjx.com/mysql/cmd/" class="article-date">
+  <time datetime="2019-11-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-11-10</time>
+</a>
+</span><span class="article-category">
+  <i class="icon icon-folder"></i>
+  <a class="article-category-link" href="/categories/mysql/"> mysql </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+    <a class="article-tag-link" href="/tags/mysql/"> mysql </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/mysql/cmd/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计:1472字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长:3分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      <h2 id="连接mysql-server">连接mysql server</h2>
+<pre><code>mysql -u${user} -p${password} -h${host} -P${port} -D${dbname}
+</code></pre><h2 id="dcl">DCL</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 创建用户
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">user</span> <span style="color:#e6db74">&#39;myuser&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;192.168.1.%&#39;</span> identified <span style="color:#66d9ef">by</span> <span style="color:#e6db74">&#39;mypwd&#39;</span>;
+
+<span style="color:#75715e">-- 创建数据库
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">database</span> mydb;
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">database</span> mydb <span style="color:#66d9ef">default</span> character <span style="color:#66d9ef">set</span> utf8 <span style="color:#66d9ef">collate</span> utf8_bin;
+
+<span style="color:#75715e">-- 将mydb所有表的所以权限授权给myuser
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">grant</span> <span style="color:#66d9ef">all</span> <span style="color:#66d9ef">on</span> mydb.<span style="color:#f92672">*</span> <span style="color:#66d9ef">to</span> <span style="color:#e6db74">&#39;myuser&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;192.168.1.%&#39;</span>;
+<span style="color:#75715e">-- 只授权部分权限，其他权限还有：create、alter、drop、create view等
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">grant</span> <span style="color:#66d9ef">select</span>, <span style="color:#66d9ef">insert</span>, <span style="color:#66d9ef">update</span>, <span style="color:#66d9ef">delete</span>, <span style="color:#66d9ef">index</span> <span style="color:#66d9ef">on</span> mydb.<span style="color:#f92672">*</span> <span style="color:#66d9ef">to</span> <span style="color:#e6db74">&#39;myuser&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;192.168.1.%&#39;</span>;
+
+<span style="color:#75715e">-- 撤销用户权限
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">revoke</span> <span style="color:#66d9ef">all</span> <span style="color:#66d9ef">privileges</span> <span style="color:#66d9ef">on</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;myuser&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;192.168.1.%&#39;</span>;
+<span style="color:#75715e">-- 撤销指定库的指定权限
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">revoke</span> <span style="color:#66d9ef">create</span>, <span style="color:#66d9ef">alter</span>, <span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">on</span> mydb.<span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;myuser&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;192.168.1.%&#39;</span>;
+
+<span style="color:#75715e">-- 刷新权限配置
+</span><span style="color:#75715e"></span>flush <span style="color:#66d9ef">privileges</span>;
+
+<span style="color:#75715e">-- 查看当前用户权限
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> grants;
+<span style="color:#75715e">-- 查看其他用户权限
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> grants <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;myuser&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;192.168.1.%&#39;</span>;
+<span style="color:#75715e">-- 查看拥有权限的db
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> databases;
+</code></pre></div><h2 id="ddl">DDL</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"> <span style="color:#960050;background-color:#1e0010">创建表</span>
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">exists</span> <span style="color:#f92672">`</span>tb<span style="color:#f92672">`</span> (
+  <span style="color:#f92672">`</span>id<span style="color:#f92672">`</span> bigint auto_increment <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>,
+  <span style="color:#f92672">`</span>c1<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">64</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">default</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;c1注释&#39;</span>,
+  <span style="color:#f92672">`</span>c2<span style="color:#f92672">`</span> int(<span style="color:#ae81ff">11</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">default</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;c2注释&#39;</span>,
+  <span style="color:#f92672">`</span>c3<span style="color:#f92672">`</span> datetime <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;c3注释&#39;</span>,
+) engine<span style="color:#f92672">=</span>INNODB <span style="color:#66d9ef">default</span> charset<span style="color:#f92672">=</span>utf8mb4;
+
+<span style="color:#75715e">-- 删除表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">table</span> tb;
+
+<span style="color:#75715e">-- 修改字段
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">modify</span> c1 varchar(<span style="color:#ae81ff">255</span>);
+<span style="color:#75715e">-- 增加字段
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">add</span> <span style="color:#66d9ef">column</span> c4 tinyint(<span style="color:#ae81ff">4</span>) <span style="color:#66d9ef">after</span> c3;
+<span style="color:#75715e">-- 删除字段
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">column</span> c4
+
+<span style="color:#75715e">-- 给字段加索引
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">add</span> <span style="color:#66d9ef">index</span> idx_c1 (c1);
+<span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">add</span> <span style="color:#66d9ef">index</span> idx_c1_c2 (c1, c2);
+<span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">add</span> <span style="color:#66d9ef">unique</span> idx_uni_c2  (c2);
+<span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">add</span> <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> idx_primary_key (c1);
+<span style="color:#75715e">-- 另一种创建索引方式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> idx_c1 <span style="color:#66d9ef">ON</span> tb (c1)
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">unique</span> <span style="color:#66d9ef">index</span> idx_uni_c2 <span style="color:#66d9ef">ON</span> tb (c2)
+
+<span style="color:#75715e">-- 删除索引
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">index</span> idx_c1;
+<span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> tb <span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">index</span> idx_c1 <span style="color:#66d9ef">ON</span> tb;
+<span style="color:#75715e">-- 查看索引
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> <span style="color:#66d9ef">index</span> <span style="color:#66d9ef">from</span> tblname;
+<span style="color:#75715e">-- 查看表定义语句
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> tb;
+
+</code></pre></div><h2 id="information_schema">INFORMATION_SCHEMA</h2>
+<h3 id="查看所有非系统表超过200mb占用磁盘空间情况">查看所有非系统表（超过200MB）占用磁盘空间情况</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- data_pct: 数据占用百分比，index_pct: 索引占用百分比, gap_pct: 空闲空间占用百分比, data_free_MB: 空闲空间占用大小, total_size_MB: 总数据大小
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> TABLE_SCHEMA,
+       <span style="color:#66d9ef">TABLE_NAME</span>,
+       DATA_LENGTH <span style="color:#f92672">/</span> (DATA_LENGTH <span style="color:#f92672">+</span> INDEX_LENGTH <span style="color:#f92672">+</span> DATA_FREE)  <span style="color:#66d9ef">as</span> data_pct,
+       INDEX_LENGTH <span style="color:#f92672">/</span> (DATA_LENGTH <span style="color:#f92672">+</span> INDEX_LENGTH <span style="color:#f92672">+</span> DATA_FREE) <span style="color:#66d9ef">as</span> index_pct,
+       DATA_FREE <span style="color:#f92672">/</span> (DATA_LENGTH <span style="color:#f92672">+</span> INDEX_LENGTH <span style="color:#f92672">+</span> DATA_FREE)    <span style="color:#66d9ef">as</span> gap_pct,
+       DATA_FREE <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span>                                 <span style="color:#66d9ef">as</span> data_free_MB,
+       (DATA_LENGTH <span style="color:#f92672">+</span> INDEX_LENGTH <span style="color:#f92672">+</span> DATA_FREE) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span>  <span style="color:#66d9ef">as</span> total_size_MB
+<span style="color:#66d9ef">from</span> INFORMATION_SCHEMA.TABLES
+<span style="color:#66d9ef">where</span> table_schema <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;mysql&#39;</span>, <span style="color:#e6db74">&#39;sys&#39;</span>, <span style="color:#e6db74">&#39;performance_schema&#39;</span>, <span style="color:#e6db74">&#39;information_schema&#39;</span>)
+  <span style="color:#66d9ef">and</span> (DATA_LENGTH <span style="color:#f92672">+</span> INDEX_LENGTH <span style="color:#f92672">+</span> DATA_FREE) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">200</span>
+<span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> gap_pct <span style="color:#66d9ef">desc</span>
+<span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">20</span>;
+</code></pre></div><h3 id="查找持续时间超过-60s-的事务">查找持续时间超过 60s 的事务</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> information_schema.innodb_trx <span style="color:#66d9ef">where</span> TIME_TO_SEC(timediff(now(),trx_started))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">60</span>
+</code></pre></div><h2 id="查看mysql进程会话情况">查看mysql进程会话情况</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 查看会话列表，与select * from information_schema.processlist等价
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> processlist;
+
+<span style="color:#75715e">-- 通过processId查询会话内容
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> information_schema.processlist <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">${</span>processId<span style="color:#960050;background-color:#1e0010">}</span>
+
+<span style="color:#75715e">-- 导出长时间执行sql的kill语句（如果线上出现大量慢查询，一个个kill很麻烦，可以导出批量kill语句一次执行）
+</span><span style="color:#75715e"></span>mysql <span style="color:#f92672">-</span>h$host <span style="color:#f92672">-</span>P$port <span style="color:#f92672">-</span>u$user <span style="color:#f92672">-</span>p$password <span style="color:#f92672">-</span>Ne <span style="color:#e6db74">&#39;select concat(&#34;kill &#34;,id,&#34;;&#34;) from information_schema.processlist where COMMAND=&#34;Query&#34; and TIME &gt; {时间阈值} and STATE=&#34;Sending data&#34;;&#39;</span> <span style="color:#f92672">&gt;</span> kill.<span style="color:#66d9ef">sql</span>
+
+<span style="color:#75715e">-- 上面导出kill语句的sql，可以根据实际情况调整sql语句（示例是：查询执行时间超过5分钟的sql）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> concat(<span style="color:#e6db74">&#39;kill &#39;</span>, id, <span style="color:#e6db74">&#39;;&#39;</span>) <span style="color:#66d9ef">from</span> information_schema.processlist <span style="color:#66d9ef">where</span> Command <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;Sleep&#39;</span> <span style="color:#66d9ef">and</span> Time <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">300</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> Time <span style="color:#66d9ef">desc</span>;
+
+<span style="color:#75715e">-- 查询正在执行的会话，按执行时长倒序，查看执行时间前10的sql
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> information_schema.processlist <span style="color:#66d9ef">where</span> Command <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;Sleep&#39;</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> Time <span style="color:#66d9ef">desc</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10</span>;
+
+<span style="color:#75715e">-- 查询连接会话最多的客户端ip
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> client_ip,<span style="color:#66d9ef">count</span>(client_ip) <span style="color:#66d9ef">as</span> client_num <span style="color:#66d9ef">from</span> (<span style="color:#66d9ef">select</span> substring_index(<span style="color:#66d9ef">host</span>,<span style="color:#e6db74">&#39;:&#39;</span> ,<span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">as</span> client_ip <span style="color:#66d9ef">from</span> information_schema.processlist ) <span style="color:#66d9ef">as</span> connect_info <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> client_ip <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> client_num <span style="color:#66d9ef">desc</span>;
+
+<span style="color:#75715e">-- 根据id kill掉会话
+</span><span style="color:#75715e"></span>kill <span style="color:#960050;background-color:#1e0010">${</span>processId<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><p>information_schema.processlist表的Command字段含义</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Binlog Dump</td>
+<td>主节点正在将二进制日志，同步到从节点</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Change User</td>
+<td>正在执行一个 change-user 的操作</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Close Stmt</td>
+<td>正在关闭一个Prepared Statement 对象</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>一个从节点连上了主节点</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Connect Out</td>
+<td>一个从节点正在连主节点</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Create DB</td>
+<td>正在执行一个create-database 的操作</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Daemon</td>
+<td>服务器内部线程，而不是来自客户端的链接</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Debug</td>
+<td>线程正在生成调试信息</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Delayed Insert</td>
+<td>该线程是一个延迟插入的处理程序</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Drop DB</td>
+<td>正在执行一个 drop-database 的操作</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Execute</td>
+<td>正在执行一个 Prepared Statement</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Fetch</td>
+<td>正在从Prepared Statement 中获取执行结果</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Field List</td>
+<td>正在获取表的列信息</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Init DB</td>
+<td>该线程正在选取一个默认的数据库</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Kill</td>
+<td>正在执行 kill 语句，杀死指定线程</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Long Data</td>
+<td>正在从Prepared Statement 中检索 long data</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Ping</td>
+<td>正在处理 server-ping 的请求</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Prepare</td>
+<td>该线程正在准备一个 Prepared Statement</td>
+<td>-</td>
+</tr>
+<tr>
+<td>ProcessList</td>
+<td>该线程正在生成服务器线程相关信息</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>该线程正在执行一个语句</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Quit</td>
+<td>该线程正在退出</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Refresh</td>
+<td>该线程正在刷表，日志或缓存；或者在重置状态变量，或者在复制服务器信息</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Register Slave</td>
+<td>正在注册从节点</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Reset Stmt</td>
+<td>正在重置 prepared statement</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Set Option</td>
+<td>正在设置或重置客户端的 statement-execution 选项</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Shutdown</td>
+<td>正在关闭服务器</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Sleep</td>
+<td>正在等待客户端向它发送执行语句</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Statistics</td>
+<td>该线程正在生成 server-status 信息</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Table Dump</td>
+<td>正在发送表的内容到从服务器</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>Unused</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="查看系统参数">查看系统参数</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_file_per_table&#39;</span>;
+</code></pre></div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.fengjx.com/mysql/specification/" title="mysql推荐使用规范"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.fengjx.com/java/jvm/jvm-runtime-data-area/"
+                    title="jvm-02-内存区域划分"><span>下一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/fengjx" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.fengjx.com/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+   window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/rust.min.js"></script>
+<script type="text/javascript"
+   src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script>
+hljs.configure({
+  tabReplace: '    ', 
+  classPrefix: ''     
+                      
+})
+hljs.initHighlightingOnLoad();
+</script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/application.js"></script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/plugin.js"></script>
+<script>
+      (function (window) {
+          var INSIGHT_CONFIG = {
+              TRANSLATION: {
+                  POSTS: '文章',
+                  PAGES: '页面',
+                  CATEGORIES: '分类',
+                  TAGS: '标签',
+                  UNTITLED: '(未命名)',
+              },
+              ROOT_URL: 'https:\/\/blog.fengjx.com\/',
+              CONTENT_URL: 'https:\/\/blog.fengjx.com\/searchindex.json ',
+          };
+          window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+      })(window);
+      </script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/insight.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'f49d3c3d06c237042f7d',
+        clientSecret: 'b4ee0f2b6fc1fa9420ab32f3eedebcb352824f4f',
+        repo: 'blog.fengjx.com-comment',
+        owner: 'fengjx',
+        admin: ['fengjx'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f6a47084e6751918976e30132a5e7a5e";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+  </body>
+</html>

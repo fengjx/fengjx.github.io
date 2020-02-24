@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        mac下使用supervisor - 冯小小，一个开发者
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="mac下使用supervisor 安装 使用brew进行 安装 $ brew install supervisor ==&amp;gt; Downloading http://7xkcej.dl1.z0.glb.clouddn.com/bottles/supervisor-3.3.1.sierra.bottle.tar.gz ######################################################################## 100.0% ==&amp;gt; Pouring supervisor-3.3.1.sierra.bottle.tar.gz ==&amp;gt; Using the sandbox ==&amp;gt; Caveats To have launchd start supervisor now and restart at login: brew services start supervisor Or, if you don&amp;#39;t want/need a background service you can" />
+  <meta name="generator" content="Hugo 0.65.3 with theme pure" />
+  <title>mac下使用supervisor - 冯小小，一个开发者</title>
+  
+
+  <link rel="stylesheet" href="https://blog.fengjx.com/css/style.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <meta property="og:title" content="mac下使用supervisor" />
+<meta property="og:description" content="mac下使用supervisor 安装 使用brew进行 安装 $ brew install supervisor ==&gt; Downloading http://7xkcej.dl1.z0.glb.clouddn.com/bottles/supervisor-3.3.1.sierra.bottle.tar.gz ######################################################################## 100.0% ==&gt; Pouring supervisor-3.3.1.sierra.bottle.tar.gz ==&gt; Using the sandbox ==&gt; Caveats To have launchd start supervisor now and restart at login: brew services start supervisor Or, if you don&#39;t want/need a background service you can" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.fengjx.com/mac-supervisor/" />
+<meta property="article:published_time" content="2018-06-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-06-10T00:00:00+00:00" />
+<meta itemprop="name" content="mac下使用supervisor">
+<meta itemprop="description" content="mac下使用supervisor 安装 使用brew进行 安装 $ brew install supervisor ==&gt; Downloading http://7xkcej.dl1.z0.glb.clouddn.com/bottles/supervisor-3.3.1.sierra.bottle.tar.gz ######################################################################## 100.0% ==&gt; Pouring supervisor-3.3.1.sierra.bottle.tar.gz ==&gt; Using the sandbox ==&gt; Caveats To have launchd start supervisor now and restart at login: brew services start supervisor Or, if you don&#39;t want/need a background service you can">
+<meta itemprop="datePublished" content="2018-06-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-06-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6927">
+
+
+
+<meta itemprop="keywords" content="supervisor," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mac下使用supervisor"/>
+<meta name="twitter:description" content="mac下使用supervisor 安装 使用brew进行 安装 $ brew install supervisor ==&gt; Downloading http://7xkcej.dl1.z0.glb.clouddn.com/bottles/supervisor-3.3.1.sierra.bottle.tar.gz ######################################################################## 100.0% ==&gt; Pouring supervisor-3.3.1.sierra.bottle.tar.gz ==&gt; Using the sandbox ==&gt; Caveats To have launchd start supervisor now and restart at login: brew services start supervisor Or, if you don&#39;t want/need a background service you can"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+  <body class="main-center" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/fengjx" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.fengjx.com/4881720.jpg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">冯小小，一个开发者</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>GuangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">分类</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">标签</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-post">
+                <a href="/posts">
+                    <i class="icon icon-list"></i>
+                  <span class="menu-title">其他</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-links">
+                <a href="/links">
+                    <i class="icon icon-friendship"></i>
+                  <span class="menu-title">友链</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello developer</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/java/" class="category-list-link">java</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="category-list-link">linux常用命令</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/mysql/" class="category-list-link">mysql</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/tools/" class="category-list-link">tools</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%85%B6%E4%BB%96/" class="category-list-link">其他</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-list-link">微服务</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/curl/" class="tag-list-link">curl</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/eclipse/" class="tag-list-link">eclipse</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ffmpeg/" class="tag-list-link">ffmpeg</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/git/" class="tag-list-link">git</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/google/" class="tag-list-link">google</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/index/" class="tag-list-link">index</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/io/" class="tag-list-link">io</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/java8/" class="tag-list-link">java8</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/jvm/" class="tag-list-link">jvm</a><span
+                    class="tag-list-count">5</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/libreoffice/" class="tag-list-link">libreoffice</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/manjaro/" class="tag-list-link">manjaro</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mysql/" class="tag-list-link">mysql</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/netty/" class="tag-list-link">netty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/npm/" class="tag-list-link">npm</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/openresty/" class="tag-list-link">openresty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/socket/" class="tag-list-link">socket</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/supervisor/" class="tag-list-link">supervisor</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ububtu/" class="tag-list-link">ububtu</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/yarn/" class="tag-list-link">yarn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/zookeeper/" class="tag-list-link">zookeeper</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="tag-list-link">多线程</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+  <aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+    <div class="slimContent">
+      <nav id="toc" class="article-toc">
+        <h3 class="toc-title">文章目录</h3>
+        <div class="toc-content always-active"><nav id="TableOfContents"></nav>
+        </div>
+      </nav>
+    </div>
+  </aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/mac-supervisor/"
+    >mac下使用supervisor</a
+  >
+</h1>
+
+      <div class="article-meta">
+        <span class="article-date">
+  <i class="icon icon-calendar-check"></i>
+<a href="https://blog.fengjx.com/mac-supervisor/" class="article-date">
+  <time datetime="2018-06-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-06-10</time>
+</a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+    <a class="article-tag-link" href="/tags/supervisor/"> supervisor </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/mac-supervisor/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计:6927字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长:14分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      <h1 id="mac下使用supervisor">mac下使用supervisor</h1>
+<ol>
+<li>安装
+使用brew进行 安装</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install supervisor
+<span style="color:#f92672">==</span>&gt; Downloading http://7xkcej.dl1.z0.glb.clouddn.com/bottles/supervisor-3.3.1.sierra.bottle.tar.gz
+<span style="color:#75715e">######################################################################## 100.0%</span>
+<span style="color:#f92672">==</span>&gt; Pouring supervisor-3.3.1.sierra.bottle.tar.gz
+<span style="color:#f92672">==</span>&gt; Using the sandbox
+<span style="color:#f92672">==</span>&gt; Caveats
+To have launchd start supervisor now and restart at login:
+  brew services start supervisor
+Or, <span style="color:#66d9ef">if</span> you don<span style="color:#e6db74">&#39;t want/need a background service you can just run:
+</span><span style="color:#e6db74">  supervisord -c /usr/local/etc/supervisord.ini
+</span><span style="color:#e6db74">==&gt; Summary
+</span><span style="color:#e6db74">🍺  /usr/local/Cellar/supervisor/3.3.1: 526 files, 6.3MB
+</span><span style="color:#e6db74">fengjianxindeMacBook-Pro:worlspaces fengjianxin$ cd /etc/s
+</span><span style="color:#e6db74">security/     services      shells        snmp/         ssh/          ssl/          sudo_lecture  sudoers       sudoers.d/    syslog.conf
+</span><span style="color:#e6db74">fengjianxindeMacBook-Pro:worlspaces fengjianxin$ vi /usr/local/etc/supervisord.ini
+</span><span style="color:#e6db74">fengjianxindeMacBook-Pro:worlspaces fengjianxin$
+</span><span style="color:#e6db74">fengjianxindeMacBook-Pro:worlspaces fengjianxin$
+</span><span style="color:#e6db74">fengjianxindeMacBook-Pro:worlspaces fengjianxin$
+</span><span style="color:#e6db74">fengjianxindeMacBook-Pro:worlspaces fengjianxin$ brew services start supervisor
+</span><span style="color:#e6db74">==&gt; Tapping homebrew/services
+</span><span style="color:#e6db74">Cloning into &#39;</span>/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services<span style="color:#960050;background-color:#1e0010">&#39;</span>...
+remote: Counting objects: 10, <span style="color:#66d9ef">done</span>.
+remote: Compressing objects: 100% <span style="color:#f92672">(</span>7/7<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+remote: Total <span style="color:#ae81ff">10</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">6</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">0</span>
+Unpacking objects: 100% <span style="color:#f92672">(</span>10/10<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+Tapped <span style="color:#ae81ff">0</span> formulae <span style="color:#f92672">(</span><span style="color:#ae81ff">37</span> files, 51KB<span style="color:#f92672">)</span>
+<span style="color:#f92672">==</span>&gt; Successfully started <span style="color:#e6db74">`</span>supervisor<span style="color:#e6db74">`</span> <span style="color:#f92672">(</span>label: homebrew.mxcl.supervisor<span style="color:#f92672">)</span>
+</code></pre></div><p>vi /Library/LaunchDaemons/homebrew.mxcl.supervisor.plist
+可以看到，安装的时候已经默认添加了开机启动（root）</p>
+<ol start="2">
+<li>开启web管理</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vi /usr/local/etc/supervisord.ini
+<span style="color:#75715e"># 将下面注释去掉</span>
+<span style="color:#f92672">[</span>inet_http_server<span style="color:#f92672">]</span>         ; inet <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span> server disabled by default
+port<span style="color:#f92672">=</span>127.0.0.1:9001        ; <span style="color:#f92672">(</span>ip_address:port specifier, *:port <span style="color:#66d9ef">for</span> all iface<span style="color:#f92672">)</span>
+username<span style="color:#f92672">=</span>fengjx              ; <span style="color:#f92672">(</span>default is no username <span style="color:#f92672">(</span>open server<span style="color:#f92672">))</span>
+password<span style="color:#f92672">=</span>fengjx1989              ; <span style="color:#f92672">(</span>default is no password <span style="color:#f92672">(</span>open server<span style="color:#f92672">))</span>
+
+<span style="color:#75715e"># 重启服务</span>
+$ brew services start supervisor
+<span style="color:#f92672">==</span>&gt; Tapping homebrew/services
+Cloning into <span style="color:#e6db74">&#39;/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services&#39;</span>...
+remote: Counting objects: 10, <span style="color:#66d9ef">done</span>.
+remote: Compressing objects: 100% <span style="color:#f92672">(</span>7/7<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+remote: Total <span style="color:#ae81ff">10</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">6</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">0</span>
+Unpacking objects: 100% <span style="color:#f92672">(</span>10/10<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+Tapped <span style="color:#ae81ff">0</span> formulae <span style="color:#f92672">(</span><span style="color:#ae81ff">37</span> files, 51KB<span style="color:#f92672">)</span>
+<span style="color:#f92672">==</span>&gt; Successfully started <span style="color:#e6db74">`</span>supervisor<span style="color:#e6db74">`</span> <span style="color:#f92672">(</span>label: homebrew.mxcl.supervisor<span style="color:#f92672">)</span>
+
+</code></pre></div><p>打开浏览器输入：http://127.0.0.1:9001/，可以看到管理界面了</p>
+<ol start="3">
+<li>管理进程
+supervisord.ini的最后一行配置</li>
+</ol>
+<pre><code>[include]
+files = /usr/local/etc/supervisor.d/*.ini
+</code></pre><p>说明我们可以吧配置文件写到/usr/local/etc/supervisor.d/目录下，只要以.ini后缀结尾就行</p>
+<p>eg. 管理nginx，前提是nginx已经安装好</p>
+<pre><code>vi nginx.ini
+
+[program:nginx]
+command = sudo /usr/local/bin/nginx
+stdout_logfile=/data/home/supervisor/logs/nginx_stdout.log
+stdout_logfile_maxbytes=10MB
+stderr_logfile=/data/home/supervisor/logs/nginx_stderr.log
+stderr_logfile_maxbytes=10MB
+autostart=true
+autorestart=true
+;environment = PATH=&quot;$PATH:/usr/local/bin&quot;
+</code></pre><p>使用supervisorctl启动nginx</p>
+<pre><code>supervisorctl start nginx
+</code></pre><p>或者在web管理界面中点击start
+<img src="/resource/7189D2FA-1A95-4065-93D5-1B9E286A6591.png" alt="PNG"></p>
+<ol start="4">
+<li>附
+supervisord.ini详解</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">[unix_http_server]            </span>
+<span style="color:#a6e22e">file</span><span style="color:#f92672">=</span><span style="color:#e6db74">/tmp/supervisor.sock   ; socket文件的路径，supervisorctl用XML_RPC和supervisord通信就是通过它进行
+</span><span style="color:#e6db74">                              的。如果不设置的话，supervisorctl也就不能用了  
+</span><span style="color:#e6db74">                              不设置的话，默认为none。 非必须设置        </span>
+<span style="color:#75715e">;chmod=0700                 ; 这个简单，就是修改上面的那个socket文件的权限为0700</span>
+                              <span style="color:#a6e22e">不设置的话，默认为0700。 非必须设置</span>
+<span style="color:#75715e">;chown=nobody:nogroup       ; 这个一样，修改上面的那个socket文件的属组为user.group</span>
+                              <span style="color:#a6e22e">不设置的话，默认为启动supervisord进程的用户及属组。非必须设置</span>
+<span style="color:#75715e">;username=user              ; 使用supervisorctl连接的时候，认证的用户</span>
+                               <span style="color:#a6e22e">不设置的话，默认为不需要用户。 非必须设置</span>
+<span style="color:#75715e">;password=123               ; 和上面的用户名对应的密码，可以直接使用明码，也可以使用SHA加密</span>
+                              <span style="color:#a6e22e">如：{SHA}82ab876d1387bfafe46cc1c8a2ef074eae50cb1d</span>
+                              <span style="color:#a6e22e">默认不设置。。。非必须设置</span>
+
+<span style="color:#75715e">;[inet_http_server]         ; 侦听在TCP上的socket，Web Server和远程的supervisorctl都要用到他</span>
+                              <span style="color:#a6e22e">不设置的话，默认为不开启。非必须设置</span>
+<span style="color:#75715e">;port=127.0.0.1:9001        ; 这个是侦听的IP和端口，侦听所有IP用 :9001或*:9001。</span>
+                              <span style="color:#a6e22e">这个必须设置，只要上面的[inet_http_server]开启了，就必须设置它</span>
+<span style="color:#75715e">;username=user              ; 这个和上面的uinx_http_server一个样。非必须设置</span>
+<span style="color:#75715e">;password=123               ; 这个也一个样。非必须设置</span>
+
+<span style="color:#a6e22e">[supervisord]                ;这个主要是定义supervisord这个服务端进程的一些参数的</span>
+                              <span style="color:#a6e22e">这个必须设置，不设置，supervisor就不用干活了</span>
+<span style="color:#a6e22e">logfile</span><span style="color:#f92672">=</span><span style="color:#e6db74">/tmp/supervisord.log ; 这个是supervisord这个主进程的日志路径，注意和子进程的日志不搭嘎。
+</span><span style="color:#e6db74">                               默认路径$CWD/supervisord.log，$CWD是当前目录。。非必须设置</span>
+<span style="color:#a6e22e">logfile_maxbytes</span><span style="color:#f92672">=</span><span style="color:#e6db74">50MB        ; 这个是上面那个日志文件的最大的大小，当超过50M的时候，会生成一个新的日 
+</span><span style="color:#e6db74">                               志文件。当设置为0时，表示不限制文件大小
+</span><span style="color:#e6db74">                               默认值是50M，非必须设置。              </span>
+<span style="color:#a6e22e">logfile_backups</span><span style="color:#f92672">=</span><span style="color:#e6db74">10           ; 日志文件保持的数量，上面的日志文件大于50M时，就会生成一个新文件。文件
+</span><span style="color:#e6db74">                               数量大于10时，最初的老文件被新文件覆盖，文件数量将保持为10
+</span><span style="color:#e6db74">                               当设置为0时，表示不限制文件的数量。
+</span><span style="color:#e6db74">                               默认情况下为10。。。非必须设置</span>
+<span style="color:#a6e22e">loglevel</span><span style="color:#f92672">=</span><span style="color:#e6db74">info                ; 日志级别，有critical, error, warn, info, debug, trace, or blather等
+</span><span style="color:#e6db74">                               默认为info。。。非必须设置项</span>
+<span style="color:#a6e22e">pidfile</span><span style="color:#f92672">=</span><span style="color:#e6db74">/tmp/supervisord.pid ; supervisord的pid文件路径。
+</span><span style="color:#e6db74">                               默认为$CWD/supervisord.pid。。。非必须设置</span>
+<span style="color:#a6e22e">nodaemon</span><span style="color:#f92672">=</span><span style="color:#e6db74">false               ; 如果是true，supervisord进程将在前台运行
+</span><span style="color:#e6db74">                               默认为false，也就是后台以守护进程运行。。。非必须设置</span>
+<span style="color:#a6e22e">minfds</span><span style="color:#f92672">=</span><span style="color:#e6db74">1024                  ; 这个是最少系统空闲的文件描述符，低于这个值supervisor将不会启动。
+</span><span style="color:#e6db74">                               系统的文件描述符在这里设置cat /proc/sys/fs/file-max
+</span><span style="color:#e6db74">                               默认情况下为1024。。。非必须设置</span>
+<span style="color:#a6e22e">minprocs</span><span style="color:#f92672">=</span><span style="color:#e6db74">200                 ; 最小可用的进程描述符，低于这个值supervisor也将不会正常启动。
+</span><span style="color:#e6db74">                              ulimit  -u这个命令，可以查看linux下面用户的最大进程数
+</span><span style="color:#e6db74">                              默认为200。。。非必须设置</span>
+<span style="color:#75715e">;umask=022                   ; 进程创建文件的掩码</span>
+                               <span style="color:#a6e22e">默认为022。。非必须设置项</span>
+<span style="color:#75715e">;user=chrism                 ; 这个参数可以设置一个非root用户，当我们以root用户启动supervisord之后。</span>
+                               <span style="color:#a6e22e">我这里面设置的这个用户，也可以对supervisord进行管理</span>
+                               <span style="color:#a6e22e">默认情况是不设置。。。非必须设置项</span>
+<span style="color:#75715e">;identifier=supervisor       ; 这个参数是supervisord的标识符，主要是给XML_RPC用的。当你有多个</span>
+                               <span style="color:#a6e22e">supervisor的时候，而且想调用XML_RPC统一管理，就需要为每个</span>
+                               <span style="color:#a6e22e">supervisor设置不同的标识符了</span>
+                               <span style="color:#a6e22e">默认是supervisord。。。非必需设置</span>
+<span style="color:#75715e">;directory=/tmp              ; 这个参数是当supervisord作为守护进程运行的时候，设置这个参数的话，启动</span>
+                               <span style="color:#a6e22e">supervisord进程之前，会先切换到这个目录</span>
+                               <span style="color:#a6e22e">默认不设置。。。非必须设置</span>
+<span style="color:#75715e">;nocleanup=true              ; 这个参数当为false的时候，会在supervisord进程启动的时候，把以前子进程</span>
+                               <span style="color:#a6e22e">产生的日志文件(路径为AUTO的情况下)清除掉。有时候咱们想要看历史日志，当 </span>
+                               <span style="color:#a6e22e">然不想日志被清除了。所以可以设置为true</span>
+                               <span style="color:#a6e22e">默认是false，有调试需求的同学可以设置为true。。。非必须设置</span>
+<span style="color:#75715e">;childlogdir=/tmp            ; 当子进程日志路径为AUTO的时候，子进程日志文件的存放路径。</span>
+                               <span style="color:#a6e22e">默认路径是这个东西，执行下面的这个命令看看就OK了，处理的东西就默认路径</span>
+                               <span style="color:#a6e22e">python -c &#34;import tempfile;print tempfile.gettempdir()&#34;</span>
+                               <span style="color:#a6e22e">非必须设置</span>
+<span style="color:#75715e">;environment=KEY=&#34;value&#34;     ; 这个是用来设置环境变量的，supervisord在linux中启动默认继承了linux的</span>
+                               <span style="color:#a6e22e">环境变量，在这里可以设置supervisord进程特有的其他环境变量。</span>
+                               <span style="color:#a6e22e">supervisord启动子进程时，子进程会拷贝父进程的内存空间内容。 所以设置的</span>
+                               <span style="color:#a6e22e">这些环境变量也会被子进程继承。</span>
+                               <span style="color:#a6e22e">小例子：environment</span><span style="color:#f92672">=</span><span style="color:#e6db74">name=&#34;haha&#34;,age=&#34;hehe&#34;
+</span><span style="color:#e6db74">                               默认为不设置。。。非必须设置</span>
+<span style="color:#75715e">;strip_ansi=false            ; 这个选项如果设置为true，会清除子进程日志中的所有ANSI 序列。什么是ANSI</span>
+                               <span style="color:#a6e22e">序列呢？就是我们的\n,\t这些东西。</span>
+                               <span style="color:#a6e22e">默认为false。。。非必须设置</span>
+
+<span style="color:#75715e">; the below section must remain in the config file for RPC</span>
+<span style="color:#75715e">; (supervisorctl/web interface) to work, additional interfaces may be</span>
+<span style="color:#75715e">; added by defining them in separate rpcinterface: sections</span>
+<span style="color:#a6e22e">[rpcinterface:supervisor]    ;这个选项是给XML_RPC用的，当然你如果想使用supervisord或者web server 这 </span>
+                              <span style="color:#a6e22e">个选项必须要开启的</span>
+<span style="color:#a6e22e">supervisor.rpcinterface_factory</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">supervisor.rpcinterface:make_main_rpcinterface </span>
+
+<span style="color:#a6e22e">[supervisorctl]              ;这个主要是针对supervisorctl的一些配置  </span>
+<span style="color:#a6e22e">serverurl</span><span style="color:#f92672">=</span><span style="color:#e6db74">unix:///tmp/supervisor.sock ; 这个是supervisorctl本地连接supervisord的时候，本地UNIX socket
+</span><span style="color:#e6db74">                                        路径，注意这个是和前面的[unix_http_server]对应的
+</span><span style="color:#e6db74">                                        默认值就是unix:///tmp/supervisor.sock。。非必须设置</span>
+<span style="color:#75715e">;serverurl=http://127.0.0.1:9001 ; 这个是supervisorctl远程连接supervisord的时候，用到的TCP socket路径</span>
+                                   <span style="color:#a6e22e">注意这个和前面的[inet_http_server]对应</span>
+                                   <span style="color:#a6e22e">默认就是http://127.0.0.1:9001。。。非必须项</span>
+                               
+<span style="color:#75715e">;username=chris              ; 用户名</span>
+                               <span style="color:#a6e22e">默认空。。非必须设置</span>
+<span style="color:#75715e">;password=123                ; 密码</span>
+                              <span style="color:#a6e22e">默认空。。非必须设置</span>
+<span style="color:#75715e">;prompt=mysupervisor         ; 输入用户名密码时候的提示符</span>
+                               <span style="color:#a6e22e">默认supervisor。。非必须设置</span>
+<span style="color:#75715e">;history_file=~/.sc_history  ; 这个参数和shell中的history类似，我们可以用上下键来查找前面执行过的命令</span>
+                               <span style="color:#a6e22e">默认是no file的。。所以我们想要有这种功能，必须指定一个文件。。。非</span>
+                               <span style="color:#a6e22e">必须设置</span>
+
+<span style="color:#75715e">; The below sample program section shows all possible program subsection values,</span>
+<span style="color:#75715e">; create one or more &#39;real&#39; program: sections to be able to control them under</span>
+<span style="color:#75715e">; supervisor.</span>
+
+<span style="color:#75715e">;[program:theprogramname]      ;这个就是咱们要管理的子进程了，&#34;:&#34;后面的是名字，最好别乱写和实际进程</span>
+                                <span style="color:#a6e22e">有点关联最好。这样的program我们可以设置一个或多个，一个program就是</span>
+                                <span style="color:#a6e22e">要被管理的一个进程</span>
+<span style="color:#75715e">;command=/bin/cat              ; 这个就是我们的要启动进程的命令路径了，可以带参数</span>
+                                <span style="color:#a6e22e">例子：/home/test.py -a &#39;hehe&#39;</span>
+                                <span style="color:#a6e22e">有一点需要注意的是，我们的command只能是那种在终端运行的进程，不能是</span>
+                                <span style="color:#a6e22e">守护进程。这个想想也知道了，比如说command</span><span style="color:#f92672">=</span><span style="color:#e6db74">service httpd start。
+</span><span style="color:#e6db74">                                httpd这个进程被linux的service管理了，我们的supervisor再去启动这个命令
+</span><span style="color:#e6db74">                                这已经不是严格意义的子进程了。
+</span><span style="color:#e6db74">                                这个是个必须设置的项</span>
+<span style="color:#75715e">;process_name=%(program_name)s ; 这个是进程名，如果我们下面的numprocs参数为1的话，就不用管这个参数</span>
+                                 <span style="color:#a6e22e">了，它默认值%(program_name)s也就是上面的那个program冒号后面的名字，</span>
+                                 <span style="color:#a6e22e">但是如果numprocs为多个的话，那就不能这么干了。想想也知道，不可能每个</span>
+                                 <span style="color:#a6e22e">进程都用同一个进程名吧。</span>
+
+                                
+<span style="color:#75715e">;numprocs=1                    ; 启动进程的数目。当不为1时，就是进程池的概念，注意process_name的设置</span>
+                                 <span style="color:#a6e22e">默认为1    。。非必须设置</span>
+<span style="color:#75715e">;directory=/tmp                ; 进程运行前，会前切换到这个目录</span>
+                                 <span style="color:#a6e22e">默认不设置。。。非必须设置</span>
+<span style="color:#75715e">;umask=022                     ; 进程掩码，默认none，非必须</span>
+<span style="color:#75715e">;priority=999                  ; 子进程启动关闭优先级，优先级低的，最先启动，关闭的时候最后关闭</span>
+                                 <span style="color:#a6e22e">默认值为999 。。非必须设置</span>
+<span style="color:#75715e">;autostart=true                ; 如果是true的话，子进程将在supervisord启动后被自动启动</span>
+                                 <span style="color:#a6e22e">默认就是true   。。非必须设置</span>
+<span style="color:#75715e">;autorestart=unexpected        ; 这个是设置子进程挂掉后自动重启的情况，有三个选项，false,unexpected</span>
+                                 <span style="color:#a6e22e">和true。如果为false的时候，无论什么情况下，都不会被重新启动，</span>
+                                 <span style="color:#a6e22e">如果为unexpected，只有当进程的退出码不在下面的exitcodes里面定义的退 </span>
+                                 <span style="color:#a6e22e">出码的时候，才会被自动重启。当为true的时候，只要子进程挂掉，将会被无</span>
+                                 <span style="color:#a6e22e">条件的重启</span>
+<span style="color:#75715e">;startsecs=1                   ; 这个选项是子进程启动多少秒之后，此时状态如果是running，则我们认为启</span>
+                                 <span style="color:#a6e22e">动成功了</span>
+                                 <span style="color:#a6e22e">默认值为1 。。非必须设置</span>
+<span style="color:#75715e">;startretries=3                ; 当进程启动失败后，最大尝试启动的次数。。当超过3次后，supervisor将把</span>
+                                 <span style="color:#a6e22e">此进程的状态置为FAIL</span>
+                                 <span style="color:#a6e22e">默认值为3 。。非必须设置</span>
+<span style="color:#75715e">;exitcodes=0,2                 ; 注意和上面的的autorestart=unexpected对应。。exitcodes里面的定义的</span>
+                                 <span style="color:#a6e22e">退出码是expected的。</span>
+<span style="color:#75715e">;stopsignal=QUIT               ; 进程停止信号，可以为TERM, HUP, INT, QUIT, KILL, USR1, or USR2等信号</span>
+                                  <span style="color:#a6e22e">默认为TERM 。。当用设定的信号去干掉进程，退出码会被认为是expected</span>
+                                  <span style="color:#a6e22e">非必须设置</span>
+<span style="color:#75715e">;stopwaitsecs=10               ; 这个是当我们向子进程发送stopsignal信号后，到系统返回信息</span>
+                                 <span style="color:#a6e22e">给supervisord，所等待的最大时间。 超过这个时间，supervisord会向该</span>
+                                 <span style="color:#a6e22e">子进程发送一个强制kill的信号。</span>
+                                 <span style="color:#a6e22e">默认为10秒。。非必须设置</span>
+<span style="color:#75715e">;stopasgroup=false             ; 这个东西主要用于，supervisord管理的子进程，这个子进程本身还有</span>
+                                 <span style="color:#a6e22e">子进程。那么我们如果仅仅干掉supervisord的子进程的话，子进程的子进程</span>
+                                 <span style="color:#a6e22e">有可能会变成孤儿进程。所以咱们可以设置可个选项，把整个该子进程的</span>
+                                 <span style="color:#a6e22e">整个进程组都干掉。 设置为true的话，一般killasgroup也会被设置为true。</span>
+                                 <span style="color:#a6e22e">需要注意的是，该选项发送的是stop信号</span>
+                                 <span style="color:#a6e22e">默认为false。。非必须设置。。</span>
+<span style="color:#75715e">;killasgroup=false             ; 这个和上面的stopasgroup类似，不过发送的是kill信号</span>
+<span style="color:#75715e">;user=chrism                   ; 如果supervisord是root启动，我们在这里设置这个非root用户，可以用来</span>
+                                 <span style="color:#a6e22e">管理该program</span>
+                                 <span style="color:#a6e22e">默认不设置。。。非必须设置项</span>
+<span style="color:#75715e">;redirect_stderr=true          ; 如果为true，则stderr的日志会被写入stdout日志文件中</span>
+                                 <span style="color:#a6e22e">默认为false，非必须设置</span>
+<span style="color:#75715e">;stdout_logfile=/a/path        ; 子进程的stdout的日志路径，可以指定路径，AUTO，none等三个选项。</span>
+                                 <span style="color:#a6e22e">设置为none的话，将没有日志产生。设置为AUTO的话，将随机找一个地方</span>
+                                 <span style="color:#a6e22e">生成日志文件，而且当supervisord重新启动的时候，以前的日志文件会被</span>
+                                 <span style="color:#a6e22e">清空。当 redirect_stderr</span><span style="color:#f92672">=</span><span style="color:#e6db74">true的时候，sterr也会写进这个日志文件</span>
+<span style="color:#75715e">;stdout_logfile_maxbytes=1MB   ; 日志文件最大大小，和[supervisord]中定义的一样。默认为50</span>
+<span style="color:#75715e">;stdout_logfile_backups=10     ; 和[supervisord]定义的一样。默认10</span>
+<span style="color:#75715e">;stdout_capture_maxbytes=1MB   ; 这个东西是设定capture管道的大小，当值不为0的时候，子进程可以从stdout</span>
+                                 <span style="color:#a6e22e">发送信息，而supervisor可以根据信息，发送相应的event。</span>
+                                 <span style="color:#a6e22e">默认为0，为0的时候表达关闭管道。。。非必须项</span>
+<span style="color:#75715e">;stdout_events_enabled=false   ; 当设置为ture的时候，当子进程由stdout向文件描述符中写日志的时候，将</span>
+                                 <span style="color:#a6e22e">触发supervisord发送PROCESS_LOG_STDOUT类型的event</span>
+                                 <span style="color:#a6e22e">默认为false。。。非必须设置</span>
+<span style="color:#75715e">;stderr_logfile=/a/path        ; 这个东西是设置stderr写的日志路径，当redirect_stderr=true。这个就不用</span>
+                                 <span style="color:#a6e22e">设置了，设置了也是白搭。因为它会被写入stdout_logfile的同一个文件中</span>
+                                 <span style="color:#a6e22e">默认为AUTO，也就是随便找个地存，supervisord重启被清空。。非必须设置</span>
+<span style="color:#75715e">;stderr_logfile_maxbytes=1MB   ; 这个出现好几次了，就不重复了</span>
+<span style="color:#75715e">;stderr_logfile_backups=10     ; 这个也是</span>
+<span style="color:#75715e">;stderr_capture_maxbytes=1MB   ; 这个一样，和stdout_capture一样。 默认为0，关闭状态</span>
+<span style="color:#75715e">;stderr_events_enabled=false   ; 这个也是一样，默认为false</span>
+<span style="color:#75715e">;environment=A=&#34;1&#34;,B=&#34;2&#34;       ; 这个是该子进程的环境变量，和别的子进程是不共享的</span>
+<span style="color:#75715e">;serverurl=AUTO                ; </span>
+
+<span style="color:#75715e">; The below sample eventlistener section shows all possible</span>
+<span style="color:#75715e">; eventlistener subsection values, create one or more &#39;real&#39;</span>
+<span style="color:#75715e">; eventlistener: sections to be able to handle event notifications</span>
+<span style="color:#75715e">; sent by supervisor.</span>
+
+<span style="color:#75715e">;[eventlistener:theeventlistenername] ;这个东西其实和program的地位是一样的，也是suopervisor启动的子进</span>
+                                       <span style="color:#a6e22e">程，不过它干的活是订阅supervisord发送的event。他的名字就叫</span>
+                                       <span style="color:#a6e22e">listener了。我们可以在listener里面做一系列处理，比如报警等等</span>
+                                       <span style="color:#a6e22e">楼主这两天干的活，就是弄的这玩意</span>
+<span style="color:#75715e">;command=/bin/eventlistener    ; 这个和上面的program一样，表示listener的可执行文件的路径</span>
+<span style="color:#75715e">;process_name=%(program_name)s ; 这个也一样，进程名，当下面的numprocs为多个的时候，才需要。否则默认就</span>
+                                 <span style="color:#a6e22e">OK了</span>
+<span style="color:#75715e">;numprocs=1                    ; 相同的listener启动的个数</span>
+<span style="color:#75715e">;events=EVENT                  ; event事件的类型，也就是说，只有写在这个地方的事件类型。才会被发送</span>
+                      
+                                 
+<span style="color:#75715e">;buffer_size=10                ; 这个是event队列缓存大小，单位不太清楚，楼主猜测应该是个吧。当buffer</span>
+                                 <span style="color:#a6e22e">超过10的时候，最旧的event将会被清除，并把新的event放进去。</span>
+                                 <span style="color:#a6e22e">默认值为10。。非必须选项</span>
+<span style="color:#75715e">;directory=/tmp                ; 进程执行前，会切换到这个目录下执行</span>
+                                 <span style="color:#a6e22e">默认为不切换。。。非必须</span>
+<span style="color:#75715e">;umask=022                     ; 淹没，默认为none，不说了</span>
+<span style="color:#75715e">;priority=-1                   ; 启动优先级，默认-1，也不扯了</span>
+<span style="color:#75715e">;autostart=true                ; 是否随supervisord启动一起启动，默认true</span>
+<span style="color:#75715e">;autorestart=unexpected        ; 是否自动重启，和program一个样，分true,false,unexpected等，注意</span>
+                                  <span style="color:#a6e22e">unexpected和exitcodes的关系</span>
+<span style="color:#75715e">;startsecs=1                   ; 也是一样，进程启动后跑了几秒钟，才被认定为成功启动，默认1</span>
+<span style="color:#75715e">;startretries=3                ; 失败最大尝试次数，默认3</span>
+<span style="color:#75715e">;exitcodes=0,2                 ; 期望或者说预料中的进程退出码，</span>
+<span style="color:#75715e">;stopsignal=QUIT               ; 干掉进程的信号，默认为TERM，比如设置为QUIT，那么如果QUIT来干这个进程</span>
+                                 <span style="color:#a6e22e">那么会被认为是正常维护，退出码也被认为是expected中的</span>
+<span style="color:#75715e">;stopwaitsecs=10               ; max num secs to wait b4 SIGKILL (default 10)</span>
+<span style="color:#75715e">;stopasgroup=false             ; send stop signal to the UNIX process group (default false)</span>
+<span style="color:#75715e">;killasgroup=false             ; SIGKILL the UNIX process group (def false)</span>
+<span style="color:#75715e">;user=chrism                   ;设置普通用户，可以用来管理该listener进程。</span>
+                                <span style="color:#a6e22e">默认为空。。非必须设置</span>
+<span style="color:#75715e">;redirect_stderr=true          ; 为true的话，stderr的log会并入stdout的log里面</span>
+                                <span style="color:#a6e22e">默认为false。。。非必须设置</span>
+<span style="color:#75715e">;stdout_logfile=/a/path        ; 这个不说了，好几遍了</span>
+<span style="color:#75715e">;stdout_logfile_maxbytes=1MB   ; 这个也是</span>
+<span style="color:#75715e">;stdout_logfile_backups=10     ; 这个也是</span>
+<span style="color:#75715e">;stdout_events_enabled=false   ; 这个其实是错的，listener是不能发送event</span>
+<span style="color:#75715e">;stderr_logfile=/a/path        ; 这个也是</span>
+<span style="color:#75715e">;stderr_logfile_maxbytes=1MB   ; 这个也是</span>
+<span style="color:#75715e">;stderr_logfile_backups        ; 这个不说了</span>
+<span style="color:#75715e">;stderr_events_enabled=false   ; 这个也是错的，listener不能发送event</span>
+<span style="color:#75715e">;environment=A=&#34;1&#34;,B=&#34;2&#34;       ; 这个是该子进程的环境变量</span>
+                                 <span style="color:#a6e22e">默认为空。。。非必须设置</span>
+<span style="color:#75715e">;serverurl=AUTO                ; override serverurl computation (childutils)</span>
+
+<span style="color:#75715e">; The below sample group section shows all possible group values,</span>
+<span style="color:#75715e">; create one or more &#39;real&#39; group: sections to create &#34;heterogeneous&#34;</span>
+<span style="color:#75715e">; process groups.</span>
+
+<span style="color:#75715e">;[group:thegroupname]  ;这个东西就是给programs分组，划分到组里面的program。我们就不用一个一个去操作了</span>
+                         <span style="color:#a6e22e">我们可以对组名进行统一的操作。 注意：program被划分到组里面之后，就相当于原来</span>
+                         <span style="color:#a6e22e">的配置从supervisor的配置文件里消失了。。。supervisor只会对组进行管理，而不再</span>
+                         <span style="color:#a6e22e">会对组里面的单个program进行管理了</span>
+<span style="color:#75715e">;programs=progname1,progname2  ; 组成员，用逗号分开</span>
+                                 <span style="color:#a6e22e">这个是个必须的设置项</span>
+<span style="color:#75715e">;priority=999                  ; 优先级，相对于组和组之间说的</span>
+                                 <span style="color:#a6e22e">默认999。。非必须选项</span>
+
+<span style="color:#75715e">; The [include] section can just contain the &#34;files&#34; setting.  This</span>
+<span style="color:#75715e">; setting can list multiple files (separated by whitespace or</span>
+<span style="color:#75715e">; newlines).  It can also contain wildcards.  The filenames are</span>
+<span style="color:#75715e">; interpreted as relative to this file.  Included files *cannot*</span>
+<span style="color:#75715e">; include files themselves.</span>
+
+<span style="color:#75715e">;[include]                         ;这个东西挺有用的，当我们要管理的进程很多的时候，写在一个文件里面</span>
+                                    <span style="color:#a6e22e">就有点大了。我们可以把配置信息写到多个文件中，然后include过来</span>
+<span style="color:#75715e">;files = relative/directory/*.ini</span>
+</code></pre></div><p>program配置详解</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[program:nginx]</span>
+<span style="color:#a6e22e">directory</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/usr/local/bin/ ; 程序的启动目录</span>
+<span style="color:#a6e22e">command</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">sudo /usr/local/bin/nginx  ; 启动命令，可以看出与手动在命令行启动的命令是一样的</span>
+<span style="color:#a6e22e">autostart</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">true     ; 在 supervisord 启动的时候也自动启动</span>
+<span style="color:#a6e22e">startsecs</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">5        ; 启动 5 秒后没有异常退出，就当作已经正常启动了</span>
+<span style="color:#a6e22e">autorestart</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">true   ; 程序异常退出后自动重启</span>
+<span style="color:#a6e22e">startretries</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">3     ; 启动失败自动重试次数，默认是 3</span>
+<span style="color:#a6e22e">user</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">root          ; 用哪个用户启动</span>
+<span style="color:#a6e22e">redirect_stderr</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">true  ; 把 stderr 重定向到 stdout，默认 false</span>
+<span style="color:#a6e22e">stdout_logfile_backups</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">20     ; stdout 日志文件备份数</span>
+<span style="color:#75715e">; stdout 日志文件，需要注意当指定目录不存在时无法正常启动，所以需要手动创建目录（supervisord 会自动创建日志文件）</span>
+<span style="color:#a6e22e">stdout_logfile</span><span style="color:#f92672">=</span><span style="color:#e6db74">/data/home/supervisor/logs/nginx_stdout.log</span>
+<span style="color:#a6e22e">stdout_logfile_maxbytes</span><span style="color:#f92672">=</span><span style="color:#e6db74">10MB</span>
+<span style="color:#a6e22e">stderr_logfile</span><span style="color:#f92672">=</span><span style="color:#e6db74">/data/home/supervisor/logs/nginx_stderr.log</span>
+<span style="color:#a6e22e">stderr_logfile_maxbytes</span><span style="color:#f92672">=</span><span style="color:#e6db74">10MB</span>
+
+<span style="color:#75715e">; 可以通过 environment 来添加需要的环境变量，一种常见的用法是修改 PYTHONPATH</span>
+<span style="color:#75715e">; environment=PYTHONPATH=$PYTHONPATH:/path/to/somewhere</span>
+
+</code></pre></div><p>一份配置文件至少需要一个 [program:x] 部分的配置，来告诉 supervisord 需要管理那个进程。[program:x] 语法中的 x 表示 program name，会在客户端（supervisorctl 或 web 界面）显示，在 supervisorctl 中通过这个值来对程序进行 start、restart、stop 等操作。</p>
+<p>supervisorctl常用命令</p>
+<pre><code>status    # 查看程序状态
+stop usercenter   # 关闭 usercenter 程序
+start usercenter  # 启动 usercenter 程序
+restart usercenter    # 重启 usercenter 程序
+reread    ＃ 读取有更新（增加）的配置文件，不会启动新添加的程序
+update    ＃ 重启配置文件修改过的程序
+</code></pre><ol start="5">
+<li>参考：
+<a href="http://supervisord.org/configuration.html">http://supervisord.org/configuration.html</a></li>
+</ol>
+<p><a href="http://liyangliang.me/posts/2015/06/using-supervisor">http://liyangliang.me/posts/2015/06/using-supervisor</a></p>
+<p><a href="http://lixcto.blog.51cto.com/4834175/1539136">http://lixcto.blog.51cto.com/4834175/1539136</a></p>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.fengjx.com/how-to-ask-questions-the-smart-way/" title="提问的智慧"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.fengjx.com/ffmpeg-merge-video/"
+                    title="ffmpeg合并视频文件"><span>下一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/fengjx" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.fengjx.com/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+   window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/rust.min.js"></script>
+<script type="text/javascript"
+   src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script>
+hljs.configure({
+  tabReplace: '    ', 
+  classPrefix: ''     
+                      
+})
+hljs.initHighlightingOnLoad();
+</script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/application.js"></script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/plugin.js"></script>
+<script>
+      (function (window) {
+          var INSIGHT_CONFIG = {
+              TRANSLATION: {
+                  POSTS: '文章',
+                  PAGES: '页面',
+                  CATEGORIES: '分类',
+                  TAGS: '标签',
+                  UNTITLED: '(未命名)',
+              },
+              ROOT_URL: 'https:\/\/blog.fengjx.com\/',
+              CONTENT_URL: 'https:\/\/blog.fengjx.com\/searchindex.json ',
+          };
+          window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+      })(window);
+      </script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/insight.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'f49d3c3d06c237042f7d',
+        clientSecret: 'b4ee0f2b6fc1fa9420ab32f3eedebcb352824f4f',
+        repo: 'blog.fengjx.com-comment',
+        owner: 'fengjx',
+        admin: ['fengjx'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f6a47084e6751918976e30132a5e7a5e";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+  </body>
+</html>

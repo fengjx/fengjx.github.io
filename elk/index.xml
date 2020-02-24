@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elks on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/elk/</link>
+    <description>Recent content in Elks on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+        <atom:link href="https://blog.fengjx.com/elk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/elk/elasticsearch-crud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/elasticsearch-crud/</guid>
+      <description>elasticsearch增删改查基本操作 官方文档 Index API</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/elk/elasticsearch-supervisor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/elasticsearch-supervisor/</guid>
+      <description>使用supervisor配置elasticsearch-7.2本地伪集群 supervisor是一个强大方便的进程管理工具，安装和使用方法自行</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/elk/elasticsearch/es-analyzer/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/elasticsearch/es-analyzer/</guid>
+      <description>elasticsearch 分词器</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/elk/elasticsearch/es-crud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/elasticsearch/es-crud/</guid>
+      <description>elasticsearch数据操作 添加数据 删除数据 修改数据 查询数据 批量操作（buik api）</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/elk/elasticsearch/kibana/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/elasticsearch/kibana/</guid>
+      <description>kibana </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/elk/elasticsearch/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/elasticsearch/readme/</guid>
+      <description>elasticsearch elasticsearch与solr对于 离线数据搜索，solr比elasticSearch快（大概4倍） 实时数据搜索，elasticSea</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/elk/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/readme/</guid>
+      <description>ELK搭建 使用docker模拟集群环境 docker network create -d bridge elk-net docker run -it --name elk1 --network elk-net openjdk:11 bash root@899d5dd71dbd:/app# ifcondif bash: ifcondif: command not found apt update apt install net-tools vim supervisor elasticsearch集群搭建 下载 wget wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.1.1-linux-x86_64.tar.gz</description>
+    </item>
+    
+  </channel>
+</rss>

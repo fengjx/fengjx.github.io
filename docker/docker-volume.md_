@@ -1,0 +1,25 @@
++++
+author = "FengJianxin"
+title = "docker volume"
+description = ""
+date = "2020-02-14"
+tags = [""]
+categories = [""]
+series = [""]
+aliases = [""]
+weight = 
++++
+
+```bash
+docker run -v /home/adrian/data:/path/to/docker/data [image]
+docker run -v volume-name:/path/to/docker/data [image]
+
+docker volume create --name **
+
+docker volume ls
+
+docker volume inspect [volume name]
+
+# 清理没有使用的卷
+docker volume [-f] prune 
+```

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        jvm-02-内存区域划分 - 冯小小，一个开发者
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="Reference 深入理解Java虚拟机（第2版） 第2章 一文了解JVM JVM源码分析之Metaspace解密 堆（Heap） JVM中最大的内存区域，被所有线程" />
+  <meta name="generator" content="Hugo 0.65.3 with theme pure" />
+  <title>jvm-02-内存区域划分 - 冯小小，一个开发者</title>
+  
+
+  <link rel="stylesheet" href="https://blog.fengjx.com/css/style.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <meta property="og:title" content="jvm-02-内存区域划分" />
+<meta property="og:description" content="Reference 深入理解Java虚拟机（第2版） 第2章 一文了解JVM JVM源码分析之Metaspace解密 堆（Heap） JVM中最大的内存区域，被所有线程" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.fengjx.com/java/jvm/jvm-runtime-data-area/" />
+<meta property="article:published_time" content="2019-09-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-15T00:00:00+00:00" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/tools/" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/gc/" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/jvm-option/" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/default/" />
+
+<meta itemprop="name" content="jvm-02-内存区域划分">
+<meta itemprop="description" content="Reference 深入理解Java虚拟机（第2版） 第2章 一文了解JVM JVM源码分析之Metaspace解密 堆（Heap） JVM中最大的内存区域，被所有线程">
+<meta itemprop="datePublished" content="2019-09-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-09-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1409">
+
+
+
+<meta itemprop="keywords" content="jvm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="jvm-02-内存区域划分"/>
+<meta name="twitter:description" content="Reference 深入理解Java虚拟机（第2版） 第2章 一文了解JVM JVM源码分析之Metaspace解密 堆（Heap） JVM中最大的内存区域，被所有线程"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+  <body class="main-center" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/fengjx" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.fengjx.com/4881720.jpg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">冯小小，一个开发者</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>GuangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">分类</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">标签</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-post">
+                <a href="/posts">
+                    <i class="icon icon-list"></i>
+                  <span class="menu-title">其他</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-links">
+                <a href="/links">
+                    <i class="icon icon-friendship"></i>
+                  <span class="menu-title">友链</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello developer</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/java/" class="category-list-link">java</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="category-list-link">linux常用命令</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/mysql/" class="category-list-link">mysql</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/tools/" class="category-list-link">tools</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%85%B6%E4%BB%96/" class="category-list-link">其他</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-list-link">微服务</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/curl/" class="tag-list-link">curl</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/eclipse/" class="tag-list-link">eclipse</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ffmpeg/" class="tag-list-link">ffmpeg</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/git/" class="tag-list-link">git</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/google/" class="tag-list-link">google</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/index/" class="tag-list-link">index</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/io/" class="tag-list-link">io</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/java8/" class="tag-list-link">java8</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/jvm/" class="tag-list-link">jvm</a><span
+                    class="tag-list-count">5</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/libreoffice/" class="tag-list-link">libreoffice</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/manjaro/" class="tag-list-link">manjaro</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mysql/" class="tag-list-link">mysql</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/netty/" class="tag-list-link">netty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/npm/" class="tag-list-link">npm</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/openresty/" class="tag-list-link">openresty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/socket/" class="tag-list-link">socket</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/supervisor/" class="tag-list-link">supervisor</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ububtu/" class="tag-list-link">ububtu</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/yarn/" class="tag-list-link">yarn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/zookeeper/" class="tag-list-link">zookeeper</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="tag-list-link">多线程</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+  <aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+    <div class="slimContent">
+      <nav id="toc" class="article-toc">
+        <h3 class="toc-title">文章目录</h3>
+        <div class="toc-content always-active"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#reference">Reference</a></li>
+    <li><a href="#堆heap">堆（Heap）</a></li>
+    <li><a href="#直接内存堆外内存">直接内存（堆外内存）</a></li>
+    <li><a href="#方法区method-area--non-heap">方法区（Method-Area / Non-Heap）</a>
+      <ul>
+        <li><a href="#运行时常量池runtime-constant-pool">运行时常量池（Runtime Constant Pool）</a></li>
+      </ul>
+    </li>
+    <li><a href="#程序计数器program-counter-register">程序计数器（Program Counter Register）</a></li>
+    <li><a href="#虚拟机栈vm-stack">虚拟机栈（VM Stack）</a></li>
+    <li><a href="#本地方法栈native-method-stack">本地方法栈（Native Method Stack）</a></li>
+  </ul>
+</nav>
+        </div>
+      </nav>
+    </div>
+  </aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/java/jvm/jvm-runtime-data-area/"
+    >jvm-02-内存区域划分</a
+  >
+</h1>
+
+      <div class="article-meta">
+        <span class="article-date">
+  <i class="icon icon-calendar-check"></i>
+<a href="https://blog.fengjx.com/java/jvm/jvm-runtime-data-area/" class="article-date">
+  <time datetime="2019-09-15 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-09-15</time>
+</a>
+</span><span class="article-category">
+  <i class="icon icon-folder"></i>
+  <a class="article-category-link" href="/categories/java/"> java </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+    <a class="article-tag-link" href="/tags/jvm/"> jvm </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/java/jvm/jvm-runtime-data-area/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计:1409字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长:3分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      <h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://book.douban.com/subject/24722612/">深入理解Java虚拟机（第2版）</a> 第2章</li>
+<li><a href="https://segmentfault.com/a/1190000019845827?utm_source=weekly&amp;utm_medium=email&amp;utm_campaign=email_weekly">一文了解JVM</a></li>
+<li><a href="http://lovestblog.cn/blog/2016/10/29/metaspace/">JVM源码分析之Metaspace解密</a></li>
+</ul>
+<h2 id="堆heap">堆（Heap）</h2>
+<p>JVM中最大的内存区域，被所有线程共享。在虚拟机启动时创建，用于存放对象实例。</p>
+<blockquote>
+<p>虚拟机规范要求所有对象实例都要在堆创建，但是随着JIT编译器的发展和逃逸分析技术成熟，也不是所有的对象都是在堆中创建了。</p>
+</blockquote>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Escape_analysis">逃逸分析</a> 中文连接<a href="https://zh.wikipedia.org/wiki/%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90">https://zh.wikipedia.org/wiki/逃逸分析</a></li>
+</ul>
+<p>堆内存划分：</p>
+<p><img src="http://blog.qiniu.fengjx.com/java/jvm/jvm-heap.png" alt="堆内存"></p>
+<blockquote>
+<p>JDK1.7中把永久代放到了堆中，JDK1.8用元空间替代了永久代，同时属于本地内存，不在堆中分配</p>
+<p>另外，永久代只存在于HotSpot虚拟机，其他虚拟机并没有永久代的概念</p>
+<p>Eden:from:to - 8:1:1
+New:Old - 1:3</p>
+</blockquote>
+<h2 id="直接内存堆外内存">直接内存（堆外内存）</h2>
+<p>直接内存不属于虚拟机规范中的运行时数据区的一部分，在一些场景中可以避免数据在native堆和Java堆中来回复制，显著提高性能。当native堆内存不足时，会调用System.gc()，期望可以回收部分内存（所以最好不要禁用System.gc(),-XX:+DisableExplicitGC），如果内存任然不足，则会导致OutOfMenoryError。</p>
+<p>直接内存可以通过调用ByteBuffer.allocateDirect()获得DirectByteBuffer对象来申请，netty中就有使用直接内存来提高性能。</p>
+<h2 id="方法区method-area--non-heap">方法区（Method-Area / Non-Heap）</h2>
+<p>方法区也是线程共享的内存区域，用于存储虚拟机加载的类（版本、字段、方法、接口等）、常量、静态变量</p>
+<blockquote>
+<p>很多地方把方法区又叫“永久代”，但是二者并不等价。只是HotSpot虚拟机用永久代来实现了方法区，省去了专门编写方法区内存管理的代码。这点上，虚拟机规范并没有约束如何实现。不过这个方案并不是很好，因为永久代的内存大小不好管理。容易遇到OOM问题，并且其他虚拟机也不存在永久代。而在JDK1.8中，Hotspot也用元空间代替的永久代。</p>
+</blockquote>
+<h3 id="运行时常量池runtime-constant-pool">运行时常量池（Runtime Constant Pool）</h3>
+<p>运行时常量池属于方法区的一部分，用于存放编译期生成的各种字面量和符号引用，这部分内容在类加载时进入运行时常量池。Java语言不约束常量一定在编译期才能产生，运行期间也可以吧产生的常量放到运行时常量池中，例如String类的intern()方法，所以常量池无法申请到内存时也会抛出OutOfMemoryError。</p>
+<h2 id="程序计数器program-counter-register">程序计数器（Program Counter Register）</h2>
+<p>程序计数器的内存空间很小，用于记录当前线程执行字节码的位置（可以理解成字节码行号），方法的分支、循环、跳转、异常处理（即：程序执行过程），都需要依赖程序计数器。在多线程任务切换过程中也需要从程序计数器加载任务执行的起始位置。</p>
+<p>在虚拟机规范中，程序计数器只是一个概念模型。</p>
+<h2 id="虚拟机栈vm-stack">虚拟机栈（VM Stack）</h2>
+<p>虚拟机栈是线程私有内存空间，随着线程的创建而创建，销毁而回收。用来保存方法执行的局部变量表、操作数栈、动态链接和方法返回地址。每个方法的执行和返回就对应一次入栈和出栈。</p>
+<h2 id="本地方法栈native-method-stack">本地方法栈（Native Method Stack）</h2>
+<p>本地方法栈与虚拟机栈作用类似，区别在于本地方法栈用于Native方法的调用（例如本地c、c++类库），而虚拟机规范并没有规定本地方法区的具体实现（可以用任何语言实现），Sum Hotspot虚拟机则将虚拟机栈和本地方法栈合并在一起。本地方法栈统一会抛出StackOverflowError和OutOfMemoryError。</p>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.fengjx.com/mysql/cmd/" title="mysql常用命令整理"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.fengjx.com/java/jvm/default/"
+                    title="jvm-01-java虚拟机"><span>下一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/fengjx" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.fengjx.com/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+   window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/rust.min.js"></script>
+<script type="text/javascript"
+   src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script>
+hljs.configure({
+  tabReplace: '    ', 
+  classPrefix: ''     
+                      
+})
+hljs.initHighlightingOnLoad();
+</script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/application.js"></script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/plugin.js"></script>
+<script>
+      (function (window) {
+          var INSIGHT_CONFIG = {
+              TRANSLATION: {
+                  POSTS: '文章',
+                  PAGES: '页面',
+                  CATEGORIES: '分类',
+                  TAGS: '标签',
+                  UNTITLED: '(未命名)',
+              },
+              ROOT_URL: 'https:\/\/blog.fengjx.com\/',
+              CONTENT_URL: 'https:\/\/blog.fengjx.com\/searchindex.json ',
+          };
+          window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+      })(window);
+      </script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/insight.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'f49d3c3d06c237042f7d',
+        clientSecret: 'b4ee0f2b6fc1fa9420ab32f3eedebcb352824f4f',
+        repo: 'blog.fengjx.com-comment',
+        owner: 'fengjx',
+        admin: ['fengjx'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f6a47084e6751918976e30132a5e7a5e";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+  </body>
+</html>

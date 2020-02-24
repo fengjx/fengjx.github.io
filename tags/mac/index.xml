@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mac on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/mac/</link>
+    <description>Recent content in mac on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 10 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mac 键盘快捷键</title>
+      <link>https://blog.fengjx.com/mac-keymap/</link>
+      <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mac-keymap/</guid>
+      <description>Mac 键盘快捷键 按键符号对照 Command（或 Cmd）⌘ Shift ⇧ Option（或 Alt）⌥ Control（或 Ctrl）⌃ Caps Lock ⇪ 剪切、拷贝、粘贴和其他</description>
+    </item>
+    
+  </channel>
+</rss>

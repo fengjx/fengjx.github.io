@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tools/</link>
+    <description>Recent content in Tools on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 25 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>eclipse快捷键</title>
+      <link>https://blog.fengjx.com/tools/eclipse-keymaps/</link>
+      <pubDate>Wed, 25 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/tools/eclipse-keymaps/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/tools/idea/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/tools/idea/</guid>
+      <description>idea 使用教程 https://github.com/judasn/IntelliJ-IDEA-Tutorial 解决编辑大文件占用大量CPU问题 idea在编辑大文件时，会占用非常多的cpu资源导致严重卡顿，使用官方jre来启动可以解决这个问</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/tools/sublime/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/tools/sublime/</guid>
+      <description>sublime 设置eclipse快捷键 说明 [ { &amp;#34;keys&amp;#34;: [&amp;#34;ctrl+d&amp;#34;], &amp;#34;command&amp;#34;: &amp;#34;run_macro_file&amp;#34;, &amp;#34;args&amp;#34;: {&amp;#34;file&amp;#34;: &amp;#34;res://Packages/Default/Delete Line.sublime-macro&amp;#34;} },//删除行 { &amp;#34;keys&amp;#34;: [&amp;#34;alt+/&amp;#34;], &amp;#34;command&amp;#34;: &amp;#34;auto_complete&amp;#34; },//自动提示 { &amp;#34;keys&amp;#34;: [&amp;#34;alt+up&amp;#34;], &amp;#34;command&amp;#34;: &amp;#34;swap_line_up&amp;#34; },//移动行，向上 { &amp;#34;keys&amp;#34;: [&amp;#34;alt+down&amp;#34;], &amp;#34;command&amp;#34;: &amp;#34;swap_line_down&amp;#34; }, {&amp;#34;keys&amp;#34;: [&amp;#34;ctrl+shift+f&amp;#34;], &amp;#34;command&amp;#34;: &amp;#34;reindent&amp;#34;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/tools/vscode/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/tools/vscode/</guid>
+      <description>vscode 设置eclipse快捷键 【首选项】&amp;ndash;&amp;gt;【键盘快捷方式】&amp;ndash;&amp;gt;【用于高级自定义打开和编辑 keybindin</description>
+    </item>
+    
+  </channel>
+</rss>

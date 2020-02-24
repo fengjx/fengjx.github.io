@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>supervisor on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/supervisor/</link>
+    <description>Recent content in supervisor on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 10 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/supervisor/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>mac下使用supervisor</title>
+      <link>https://blog.fengjx.com/mac-supervisor/</link>
+      <pubDate>Sun, 10 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mac-supervisor/</guid>
+      <description>mac下使用supervisor 安装 使用brew进行 安装 $ brew install supervisor ==&amp;gt; Downloading http://7xkcej.dl1.z0.glb.clouddn.com/bottles/supervisor-3.3.1.sierra.bottle.tar.gz ######################################################################## 100.0% ==&amp;gt; Pouring supervisor-3.3.1.sierra.bottle.tar.gz ==&amp;gt; Using the sandbox ==&amp;gt; Caveats To have launchd start supervisor now and restart at login: brew services start supervisor Or, if you don&amp;#39;t want/need a background service you can</description>
+    </item>
+    
+  </channel>
+</rss>

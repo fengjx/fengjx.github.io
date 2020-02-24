@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>curl on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/curl/</link>
+    <description>Recent content in curl on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/curl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>curl参数详解</title>
+      <link>https://blog.fengjx.com/curl/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/curl/</guid>
+      <description>curl参数详解 Common Options -#, --progress-bar Make curl display a simple progress bar instead of the more informational standard meter. -b, --cookie &amp;lt;name=data&amp;gt; Supply cookie with request. If no =, then specifies the cookie file to use (see -c). -c, --cookie-jar &amp;lt;file name&amp;gt; File to save response cookies to. -d, --data &amp;lt;data&amp;gt; Send specified data in POST request. Details provided below. -f, --fail Fail</description>
+    </item>
+    
+  </channel>
+</rss>

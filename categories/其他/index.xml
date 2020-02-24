@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>其他 on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/categories/%E5%85%B6%E4%BB%96/</link>
+    <description>Recent content in 其他 on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 18 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/categories/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>chrome离线安装包下载</title>
+      <link>https://blog.fengjx.com/chrome-download/</link>
+      <pubDate>Wed, 18 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/chrome-download/</guid>
+      <description>最新稳定版： https://www.google.com/intl/zh-CN/chrome/browser/?standalone=1 最新测试版： https://www.google.com/intl/zh-CN/chrome/browser/?standalone=1&amp;amp;extra=betachannel 最新开发版： https://www.google.com/intl/zh-CN/chrome/browser/?standalone=1&amp;amp;extra=devchannel 另外,在ubuntu下可以安装chromium sudo add-apt-repository ppa:chromium-daily sudo apt-get update sudo apt-get install chromium-browser</description>
+    </item>
+    
+  </channel>
+</rss>

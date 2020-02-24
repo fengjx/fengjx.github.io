@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kafkas on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/kafka/</link>
+    <description>Recent content in Kafkas on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+        <atom:link href="https://blog.fengjx.com/kafka/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/kafka/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/kafka/readme/</guid>
+      <description>kafka入门 安装 下载 https://kafka.apache.org/quickstart#quickstart_download wget http://mirror.bit.edu.cn/apache/kafka/2.3.0/kafka_2.12-2.3.0.tgz tar -xzf kafka_2.12-2.3.0.tgz cd kafka_2.12-2.3.0 修改配置 vim config/server.properties # 日志路径，可以配置多个，用&amp;#34;,&amp;#34;分隔 log.dirs= # 服务监听地址（内网IP） listeners= # 服务</description>
+    </item>
+    
+  </channel>
+</rss>

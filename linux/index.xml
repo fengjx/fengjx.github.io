@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linuxes on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/linux/</link>
+    <description>Recent content in Linuxes on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+        <atom:link href="https://blog.fengjx.com/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/cmd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/cmd/</guid>
+      <description>linux 常用命令 CPU 查看cpu信息 # 查看cpu核心 grep &amp;#39;model name&amp;#39; /proc/cpuinfo # 查看cpu核心数 grep &amp;#39;model name&amp;#39; /proc/cpuinfo | wc -l open files # 查看所有文件限制参数 ulimit -a # 查看进程open files cat /proc/{pid}/limits cat /proc/1237/limits</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/cmd/awk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/cmd/awk/</guid>
+      <description>awk </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/cmd/netstat/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/cmd/netstat/</guid>
+      <description>netstat 查看连接到服务器top10客户端的IP netstat -nat | awk &amp;#39;{print $5}&amp;#39; | awk -F &amp;#39;:&amp;#39; &amp;#39;{print $1}&amp;#39; | sort | uniq -c | sort -rn | head -n 10</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/cmd/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/cmd/readme/</guid>
+      <description>linux常用命令 参考： https://coolshell.cn/articles/19219.html https://github.com/alebcay/awesome-shell https://github.com/awesome-lists/awesome-bash 常用alias alias ll=&amp;#39;ls -la&amp;#39; alias svim=&amp;#39;sudo vim&amp;#39; alias mkcd=&amp;#39;mkcd(){ mkdir -p &amp;#34;$1&amp;#34;; cd &amp;#34;$1&amp;#34; }; mkcd &amp;#39; alias ..=&amp;#34;cd ..&amp;#34; alias ...=&amp;#34;cd ../../&amp;#34; alias ....=&amp;#34;cd ../../../&amp;#34; alias .....=&amp;#34;cd ../../../../&amp;#34; 常用命令 # 查看进程信息 ls -l /proc/$pid # 进程启动命</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/cpu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/cpu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/io/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/io/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/memory/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/memory/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/performance-analysis/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/performance-analysis/</guid>
+      <description>linux性能分析工具 性能测试工具安装 安装stress sudo apt-get install stress # 安装其他辅助工具 sudo apt-get install -y linux-tools-common linux-tools-generic linux-tools-$(uname -r)） 模拟cpu密集型进程 # 模拟1个cpu使</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/readme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/linux/tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/tools/</guid>
+      <description>常用工具 polysh http://guichaz.free.fr/polysh/</description>
+    </item>
+    
+  </channel>
+</rss>

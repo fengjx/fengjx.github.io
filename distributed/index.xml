@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Distributeds on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/distributed/</link>
+    <description>Recent content in Distributeds on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+        <atom:link href="https://blog.fengjx.com/distributed/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/distributed/microservice/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/distributed/microservice/readme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/distributed/microservice/spring-cloud/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/distributed/microservice/spring-cloud/readme/</guid>
+      <description>spring-cloud value=&amp;rdquo;%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([${springAppName:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]){yellow} %clr(${PID:- }){magenta} %clr(&amp;mdash;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}&amp;rdquo;
+https://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/2.1.2.RELEASE/single/spring-cloud-sleuth.html#_json_logback_with_logstash</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/distributed/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/distributed/readme/</guid>
+      <description>分布式</description>
+    </item>
+    
+  </channel>
+</rss>

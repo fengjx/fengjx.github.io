@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>manjaro on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/manjaro/</link>
+    <description>Recent content in manjaro on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 10 Oct 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/manjaro/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>manjaro安装docker</title>
+      <link>https://blog.fengjx.com/manjaro-install-docker/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/manjaro-install-docker/</guid>
+      <description>install # 安装 sudo pacman -S docker # 启动docker sudo systemctl start docker # 查看状态 sudo systemctl status docker # 设置开启启动 sudo systemctl enable docker</description>
+    </item>
+    
+    <item>
+      <title>manjaro安装MySQL</title>
+      <link>https://blog.fengjx.com/manjaro-install-mysql/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/manjaro-install-mysql/</guid>
+      <description># 安装 ➜ ~ sudo pacman -S mysql # 初始化MySQL # root@localhost: fip6sD,Et)_&amp;amp;，会输出root初始密码 ➜ ~ sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql 2019-10-28T17:26:22.653266Z 0 [Warning] [MY-010915] [Server] &amp;#39;NO_ZERO_DATE&amp;#39;, &amp;#39;NO_ZERO_IN_DATE&amp;#39; and &amp;#39;ERROR_FOR_DIVISION_BY_ZERO&amp;#39; sql modes should be used</description>
+    </item>
+    
+  </channel>
+</rss>

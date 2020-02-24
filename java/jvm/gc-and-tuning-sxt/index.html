@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+         - 冯小小，一个开发者
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="GC和GC Tuning 作者：马士兵教育 http://mashibing.com GC的基础知识 1.什么是垃圾 C语言申请内存：malloc free C&#43;&#43;： new delete c/C&#43;&#43; 手动回收内存 Java: new ？ 自动内存回收，编程上" />
+  <meta name="generator" content="Hugo 0.65.3 with theme pure" />
+  <title> - 冯小小，一个开发者</title>
+  
+
+  <link rel="stylesheet" href="https://blog.fengjx.com/css/style.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <meta property="og:title" content="" />
+<meta property="og:description" content="GC和GC Tuning 作者：马士兵教育 http://mashibing.com GC的基础知识 1.什么是垃圾 C语言申请内存：malloc free C&#43;&#43;： new delete c/C&#43;&#43; 手动回收内存 Java: new ？ 自动内存回收，编程上" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.fengjx.com/java/jvm/gc-and-tuning-sxt/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="GC和GC Tuning 作者：马士兵教育 http://mashibing.com GC的基础知识 1.什么是垃圾 C语言申请内存：malloc free C&#43;&#43;： new delete c/C&#43;&#43; 手动回收内存 Java: new ？ 自动内存回收，编程上">
+
+<meta itemprop="wordCount" content="2445">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="GC和GC Tuning 作者：马士兵教育 http://mashibing.com GC的基础知识 1.什么是垃圾 C语言申请内存：malloc free C&#43;&#43;： new delete c/C&#43;&#43; 手动回收内存 Java: new ？ 自动内存回收，编程上"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+  <body class="main-center" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/fengjx" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.fengjx.com/4881720.jpg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">冯小小，一个开发者</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>GuangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">分类</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">标签</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-post">
+                <a href="/posts">
+                    <i class="icon icon-list"></i>
+                  <span class="menu-title">其他</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-links">
+                <a href="/links">
+                    <i class="icon icon-friendship"></i>
+                  <span class="menu-title">友链</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello developer</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/java/" class="category-list-link">java</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="category-list-link">linux常用命令</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/mysql/" class="category-list-link">mysql</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/tools/" class="category-list-link">tools</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%85%B6%E4%BB%96/" class="category-list-link">其他</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-list-link">微服务</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/curl/" class="tag-list-link">curl</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/eclipse/" class="tag-list-link">eclipse</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ffmpeg/" class="tag-list-link">ffmpeg</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/git/" class="tag-list-link">git</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/google/" class="tag-list-link">google</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/index/" class="tag-list-link">index</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/io/" class="tag-list-link">io</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/java8/" class="tag-list-link">java8</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/jvm/" class="tag-list-link">jvm</a><span
+                    class="tag-list-count">5</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/libreoffice/" class="tag-list-link">libreoffice</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/manjaro/" class="tag-list-link">manjaro</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mysql/" class="tag-list-link">mysql</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/netty/" class="tag-list-link">netty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/npm/" class="tag-list-link">npm</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/openresty/" class="tag-list-link">openresty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/socket/" class="tag-list-link">socket</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/supervisor/" class="tag-list-link">supervisor</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ububtu/" class="tag-list-link">ububtu</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/yarn/" class="tag-list-link">yarn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/zookeeper/" class="tag-list-link">zookeeper</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="tag-list-link">多线程</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+  <aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+    <div class="slimContent">
+      <nav id="toc" class="article-toc">
+        <h3 class="toc-title">文章目录</h3>
+        <div class="toc-content always-active"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#gc的基础知识">GC的基础知识</a></li>
+        <li><a href="#参考资料">参考资料</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+      </nav>
+    </div>
+  </aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/java/jvm/gc-and-tuning-sxt/"
+    ></a
+  >
+</h1>
+
+      <div class="article-meta">
+        <span class="article-date">
+  <i class="icon icon-calendar-check"></i>
+<a href="https://blog.fengjx.com/java/jvm/gc-and-tuning-sxt/" class="article-date">
+  <time datetime="0001-01-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">0001-01-01</time>
+</a>
+</span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/java/jvm/gc-and-tuning-sxt/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计:2445字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长:5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      <h1 id="gc和gc-tuning">GC和GC Tuning</h1>
+<p>作者：马士兵教育 <a href="http://mashibing.com">http://mashibing.com</a></p>
+<h3 id="gc的基础知识">GC的基础知识</h3>
+<h4 id="1什么是垃圾">1.什么是垃圾</h4>
+<blockquote>
+<p>C语言申请内存：malloc free</p>
+<p>C++： new delete</p>
+<p>c/C++ 手动回收内存</p>
+<p>Java: new ？</p>
+<p>自动内存回收，编程上简单，系统不容易出错，手动释放内存，容易出两种类型的问题：</p>
+<ol>
+<li>忘记回收</li>
+<li>多次回收</li>
+</ol>
+</blockquote>
+<p>没有任何引用指向的一个对象或者多个对象（循环引用）</p>
+<h4 id="2如何定位垃圾">2.如何定位垃圾</h4>
+<ol>
+<li>引用计数</li>
+<li>根可达算法</li>
+</ol>
+<h4 id="3常见的垃圾回收算法">3.常见的垃圾回收算法</h4>
+<ol>
+<li>标记清除 - 位置不连续 产生碎片 效率偏低（两遍扫描）</li>
+<li>拷贝算法 - 没有碎片，浪费空间</li>
+<li>标记压缩 - 没有碎片，效率偏低（两遍扫描，指针需要调整）</li>
+</ol>
+<h4 id="4jvm内存分代模型用于分代垃圾回收算法">4.JVM内存分代模型（用于分代垃圾回收算法）</h4>
+<ol>
+<li>部分垃圾回收器使用的模型</li>
+<li>新生代 + 老年代 + 永久代（1.7）/ 元数据区(1.8) Metaspace
+<ol>
+<li>永久代 元数据 - Class</li>
+<li>永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存）</li>
+<li>字符串常量 1.7 - 永久代，1.8 - 堆</li>
+<li>MethodArea逻辑概念 - 永久代、元数据</li>
+</ol>
+</li>
+<li>新生代 = Eden + 2个suvivor区
+<ol>
+<li>YGC回收之后，大多数的对象会被回收，活着的进入s0</li>
+<li>再次YGC，活着的对象eden + s0 -&gt; s1</li>
+<li>再次YGC，eden + s1 -&gt; s0</li>
+<li>年龄足够 -&gt; 老年代 （15 CMS 6）</li>
+<li>s区装不下 -&gt; 老年代</li>
+</ol>
+</li>
+<li>老年代
+<ol>
+<li>顽固分子</li>
+<li>老年代满了FGC Full GC</li>
+</ol>
+</li>
+<li>GC Tuning (Generation)
+<ol>
+<li>尽量减少FGC</li>
+<li>MinorGC = YGC</li>
+<li>MajorGC = FGC</li>
+</ol>
+</li>
+</ol>
+<h4 id="5常见的垃圾回收器">5.常见的垃圾回收器</h4>
+<ol>
+<li>Serial 年轻代 串行回收</li>
+<li>PS 年轻代 并行回收</li>
+<li>ParNew 年轻代 配合CMS的并行回收</li>
+<li>SerialOld</li>
+<li>ParallelOld</li>
+<li>ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms)</li>
+<li>G1(10ms)</li>
+<li>ZGC (1ms) PK C++</li>
+<li>Shenandoah</li>
+<li>Eplison</li>
+</ol>
+<p>1.8默认的垃圾回收：PS + ParallelOld</p>
+<h4 id="6jvm调优第一步了解生产环境下的垃圾回收器组合">6.JVM调优第一步，了解生产环境下的垃圾回收器组合</h4>
+<ul>
+<li>
+<p>JVM的命令行参数参考：https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html</p>
+</li>
+<li>
+<p>HotSpot参数分类</p>
+<blockquote>
+<p>标准： - 开头，所有的HotSpot都支持</p>
+<p>非标准：-X 开头，特定版本HotSpot支持特定命令</p>
+<p>不稳定：-XX 开头，下个版本可能取消</p>
+</blockquote>
+<p>java -version</p>
+<p>java -X</p>
+<p>试验用程序：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.LinkedList<span style="color:#f92672">;</span>
+  
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloGC</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;HelloGC!&#34;</span><span style="color:#f92672">);</span>
+    List list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LinkedList<span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">for</span><span style="color:#f92672">(;;)</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> b <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>1024<span style="color:#f92672">*</span>1024<span style="color:#f92672">];</span>
+      list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>b<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ol>
+<li>java -XX:+PrintCommandLineFlags HelloGC</li>
+<li>java -Xmn10M -Xms40M -Xmx60M -XX:+PrintCommandLineFlags HelloGC</li>
+<li>java -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags HelloGC</li>
+<li>java -XX:+PrintFlagsInitial 默认参数值</li>
+<li>java -XX:+PrintFlagsFinal 最终参数值</li>
+<li>java -XX:+PrintFlagsFinal | grep xxx 找到对应的参数</li>
+<li>java -XX:+PrintFlagsFinal -version |grep GC</li>
+</ol>
+</li>
+<li>
+<p>常见垃圾回收器组合参数设定：(1.8)</p>
+<ul>
+<li>-XX:+UseSerialGC = Serial New (DefNew) + Serial Old
+<ul>
+<li>小型程序。默认情况下不会是这种选项，HotSpot会根据计算及配置和JDK版本自动选择收集器</li>
+</ul>
+</li>
+<li>-XX:+UseParNewGC = ParNew + SerialOld
+<ul>
+<li>这个组合已经很少用（在某些版本中已经废弃）</li>
+<li><a href="https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future">https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future</a></li>
+</ul>
+</li>
+<li>UseConc<!-- raw HTML omitted -->(urrent)<!-- raw HTML omitted -->MarkSweepGC = ParNew + CMS + Serial Old</li>
+<li>UseParallelGC = Parallel Scavenge + Parallel Old (1.8默认) 【PS + SerialOld】</li>
+<li>UseParallelOldGC = Parallel Scavenge + Parallel Old</li>
+<li>UseG1GC = G1</li>
+</ul>
+</li>
+<li>
+<p>Linux中没找到默认GC的查看方法，而windows中会打印UseParallelGC</p>
+<ul>
+<li>java +XX:+PrintCommandLineFlags -version</li>
+<li>通过GC的日志来分辨</li>
+</ul>
+</li>
+<li>
+<p>Linux下1.8版本默认的垃圾回收器到底是什么？</p>
+<ul>
+<li>1.8.0_181 默认（看不出来）Copy MarkCompact</li>
+<li>1.8.0_222 默认 PS + PO</li>
+</ul>
+</li>
+</ul>
+<h4 id="7调优从规划开始">7.调优，从规划开始</h4>
+<ul>
+<li>调优，从业务场景开始，没有业务场景的调优都是耍流氓</li>
+<li>无监控，不调优</li>
+<li>步骤：
+<ol>
+<li>熟悉业务场景（没有最好的垃圾回收器，只有最合适的垃圾回收器）
+<ol>
+<li>响应时间、停顿时间</li>
+<li>吞吐量 = 用户时间 / 用户时间 + GC时间</li>
+</ol>
+</li>
+<li>选择回收器组合</li>
+<li>计算内存需求</li>
+<li>设定年代大小、升级年龄</li>
+<li>设定日志参数
+<ol>
+<li>-Xloggc:/opt/xxx/logs/xxx-xxx-gc-%t.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20M -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCCause</li>
+</ol>
+</li>
+<li>观察日志情况</li>
+</ol>
+</li>
+</ul>
+<h4 id="8gc日志详解">8.GC日志详解</h4>
+<p>heap dump部分：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">eden space 5632K<span style="color:#f92672">,</span> 94<span style="color:#f92672">%</span> used <span style="color:#f92672">[</span>0x00000000ff980000<span style="color:#f92672">,</span>0x00000000ffeb3e28<span style="color:#f92672">,</span>0x00000000fff00000<span style="color:#f92672">)</span>
+                            后面的内存地址指的是<span style="color:#960050;background-color:#1e0010">，</span>起始地址<span style="color:#960050;background-color:#1e0010">，</span>使用空间结束地址<span style="color:#960050;background-color:#1e0010">，</span>整体空间结束地址
+</code></pre></div><h4 id="9实战操作">9.实战操作</h4>
+<ol>
+<li>
+<p>测试代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> com.mashibing.jvm.gc<span style="color:#f92672">;</span>
+   
+<span style="color:#f92672">import</span> java.math.BigDecimal<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Date<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.concurrent.ScheduledThreadPoolExecutor<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.concurrent.ThreadPoolExecutor<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.concurrent.TimeUnit<span style="color:#f92672">;</span>
+   
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 从数据库中读取信用数据，套用模型，并把结果进行记录和传输
+</span><span style="color:#75715e"> */</span>
+   
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T15_FullGC_Problem01</span> <span style="color:#f92672">{</span>
+   
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CardInfo</span> <span style="color:#f92672">{</span>
+        BigDecimal price <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BigDecimal<span style="color:#f92672">(</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+        String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;张三&#34;</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+        Date birthdate <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date<span style="color:#f92672">();</span>
+   
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">m</span><span style="color:#f92672">()</span> <span style="color:#f92672">{}</span>
+    <span style="color:#f92672">}</span>
+   
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> ScheduledThreadPoolExecutor executor <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ScheduledThreadPoolExecutor<span style="color:#f92672">(</span>50<span style="color:#f92672">,</span>
+            <span style="color:#66d9ef">new</span> ThreadPoolExecutor<span style="color:#f92672">.</span><span style="color:#a6e22e">DiscardOldestPolicy</span><span style="color:#f92672">());</span>
+   
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        executor<span style="color:#f92672">.</span><span style="color:#a6e22e">setMaximumPoolSize</span><span style="color:#f92672">(</span>50<span style="color:#f92672">);</span>
+   
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(;;){</span>
+            modelFit<span style="color:#f92672">();</span>
+            Thread<span style="color:#f92672">.</span><span style="color:#a6e22e">sleep</span><span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+   
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">modelFit</span><span style="color:#f92672">(){</span>
+        List<span style="color:#f92672">&lt;</span>CardInfo<span style="color:#f92672">&gt;</span> taskList <span style="color:#f92672">=</span> getAllCardInfo<span style="color:#f92672">();</span>
+        taskList<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>info <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// do something
+</span><span style="color:#75715e"></span>            executor<span style="color:#f92672">.</span><span style="color:#a6e22e">scheduleWithFixedDelay</span><span style="color:#f92672">(()</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+                <span style="color:#75715e">//do sth with info
+</span><span style="color:#75715e"></span>                info<span style="color:#f92672">.</span><span style="color:#a6e22e">m</span><span style="color:#f92672">();</span>
+   
+            <span style="color:#f92672">},</span> 2<span style="color:#f92672">,</span> 3<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">});</span>
+    <span style="color:#f92672">}</span>
+   
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>CardInfo<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getAllCardInfo</span><span style="color:#f92672">(){</span>
+        List<span style="color:#f92672">&lt;</span>CardInfo<span style="color:#f92672">&gt;</span> taskList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+   
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 100<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            CardInfo ci <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> CardInfo<span style="color:#f92672">();</span>
+            taskList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>ci<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+   
+        <span style="color:#66d9ef">return</span> taskList<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+   
+</code></pre></div></li>
+<li>
+<p>java -Xms200M -Xmx200M com.mashibing.jvm.gc.T15_FullGC_Problem01</p>
+</li>
+<li>
+<p>top命令观察到问题：内存不断增长 CPU占用率居高不下</p>
+</li>
+<li>
+<p>jps定位具体java进程</p>
+</li>
+<li>
+<p>jstat -gc 动态观察gc情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole</p>
+</li>
+<li>
+<p>jmap -dump:format=b,file=xxx pid / jmap -histo</p>
+</li>
+<li>
+<p>java -Xms20M -Xmx20M -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError com.mashibing.jvm.gc.T15_FullGC_Problem01</p>
+</li>
+<li>
+<p>使用MAT / jhat进行dump文件分析</p>
+</li>
+<li>
+<p>找到代码的问题</p>
+</li>
+</ol>
+<h4 id="实战jconsole远程连接">实战：jconsole远程连接</h4>
+<ol>
+<li>
+<p>程序启动加入参数：</p>
+<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">java -Djava.rmi.server.hostname<span style="color:#f92672">=</span>192.168.17.11 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port<span style="color:#f92672">=</span><span style="color:#ae81ff">11111</span> -Dcom.sun.management.jmxremote.authenticate<span style="color:#f92672">=</span>false -Dcom.sun.management.jmxremote.ssl<span style="color:#f92672">=</span>false XXX
+</code></pre></div></blockquote>
+</li>
+<li>
+<p>如果遭遇 Local host name unknown：XXX的错误，修改/etc/hosts文件，把XXX加入进去</p>
+<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">192<span style="color:#f92672">.</span><span style="color:#a6e22e">168</span><span style="color:#f92672">.</span><span style="color:#a6e22e">17</span><span style="color:#f92672">.</span><span style="color:#a6e22e">11</span> basic localhost localhost<span style="color:#f92672">.</span><span style="color:#a6e22e">localdomain</span> localhost4 localhost4<span style="color:#f92672">.</span><span style="color:#a6e22e">localdomain4</span>
+<span style="color:#f92672">::</span>1         localhost localhost<span style="color:#f92672">.</span><span style="color:#a6e22e">localdomain</span> localhost6 localhost6<span style="color:#f92672">.</span><span style="color:#a6e22e">localdomain6</span>
+</code></pre></div></blockquote>
+</li>
+<li>
+<p>关闭linux防火墙（实战中应该打开对应端口）</p>
+<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">service iptables stop
+chkconfig iptables off <span style="color:#75715e">#永久关闭</span>
+</code></pre></div></blockquote>
+</li>
+<li>
+<p>windows上打开 jconsole远程连接 192.168.17.11:11111</p>
+</li>
+</ol>
+<h4 id="作业">作业：</h4>
+<ol>
+<li>
+<p>-XX:MaxTenuringThreshold控制的是什么？
+A: 对象升入老年代的年龄
+B: 老年代触发FGC时的内存垃圾比例</p>
+</li>
+<li>
+<p>生产环境中，倾向于将最大堆内存和最小堆内存设置为：（为什么？）
+A: 相同 B：不同</p>
+</li>
+<li>
+<p>JDK1.8默认的垃圾回收器是：
+A: ParNew + CMS
+B: G1
+C: PS + ParallelOld
+D: 以上都不是</p>
+</li>
+<li>
+<p>什么是响应时间优先？</p>
+</li>
+<li>
+<p>什么是吞吐量优先？</p>
+</li>
+<li>
+<p>ParNew和PS的区别是什么？</p>
+</li>
+<li>
+<p>ParNew和ParallelOld的区别是什么？（年代不同，算法不同）</p>
+</li>
+<li>
+<p>长时间计算的场景应该选择：A：停顿时间 B: 吞吐量</p>
+</li>
+<li>
+<p>大规模电商网站应该选择：A：停顿时间 B: 吞吐量</p>
+</li>
+<li>
+<p>HotSpot的垃圾收集器最常用有哪些？</p>
+</li>
+<li>
+<p>常见的HotSpot垃圾收集器组合有哪些？</p>
+</li>
+<li>
+<p>JDK1.7 1.8 1.9的默认垃圾回收器是什么？如何查看？</p>
+</li>
+<li>
+<p>所谓调优，到底是在调什么？</p>
+</li>
+<li>
+<p>如果采用PS + ParrallelOld组合，怎么做才能让系统基本不产生FGC</p>
+</li>
+<li>
+<p>如果采用ParNew + CMS组合，怎样做才能够让系统基本不产生FGC</p>
+<p>1.加大JVM内存</p>
+<p>2.加大Young的比例</p>
+<p>3.提高Y-O的年龄</p>
+<p>4.提高S区比例</p>
+<p>5.避免代码内存泄漏</p>
+</li>
+<li>
+<p>G1是否分代？G1垃圾回收器会产生FGC吗？</p>
+</li>
+<li>
+<p>如果G1产生FGC，你应该做什么？</p>
+<ol>
+<li>扩内存</li>
+<li>提高CPU性能（回收的快，业务逻辑产生对象的速度固定，垃圾回收越快，内存空间越大）</li>
+</ol>
+</li>
+</ol>
+<h3 id="参考资料">参考资料</h3>
+<ol>
+<li><a href="https://blogs.oracle.com/jonthecollector/our-collectors">https://blogs.oracle.com/
+</a><a href="https://blogs.oracle.com/jonthecollector/our-collectors">jonthecollector</a><a href="https://blogs.oracle.com/jonthecollector/our-collectors">/our-collectors</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html</a></li>
+<li><a href="http://java.sun.com/javase/technologies/hotspot/vmoptions.jsp">http://java.sun.com/javase/technologies/hotspot/vmoptions.jsp</a></li>
+<li>JVM调优参考文档：https://docs.oracle.com/en/java/javase/13/gctuning/introduction-garbage-collection-tuning.html#GUID-8A443184-7E07-4B71-9777-4F12947C8184</li>
+</ol>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.fengjx.com/java/jvm/gc-log/" title=""><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.fengjx.com/java/jvm/bytecode/"
+                    title=""><span>下一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/fengjx" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.fengjx.com/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+   window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/rust.min.js"></script>
+<script type="text/javascript"
+   src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script>
+hljs.configure({
+  tabReplace: '    ', 
+  classPrefix: ''     
+                      
+})
+hljs.initHighlightingOnLoad();
+</script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/application.js"></script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/plugin.js"></script>
+<script>
+      (function (window) {
+          var INSIGHT_CONFIG = {
+              TRANSLATION: {
+                  POSTS: '文章',
+                  PAGES: '页面',
+                  CATEGORIES: '分类',
+                  TAGS: '标签',
+                  UNTITLED: '(未命名)',
+              },
+              ROOT_URL: 'https:\/\/blog.fengjx.com\/',
+              CONTENT_URL: 'https:\/\/blog.fengjx.com\/searchindex.json ',
+          };
+          window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+      })(window);
+      </script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/insight.js"></script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f6a47084e6751918976e30132a5e7a5e";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+  </body>
+</html>

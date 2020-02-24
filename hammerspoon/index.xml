@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hammerspoons on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/hammerspoon/</link>
+    <description>Recent content in Hammerspoons on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+        <atom:link href="https://blog.fengjx.com/hammerspoon/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/hammerspoon/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/hammerspoon/readme/</guid>
+      <description>hammerspoon hammerspoon配置 https://github.com/ashfinal/awesome-hammerspoon https://github.com/S1ngS1ng/HammerSpoon https://github.com/wangshub/hammerspoon-config hammerspoon教程 Lua快速入门 Hammerspoon API文档 Hammerspoon可以让你少买很多App</description>
+    </item>
+    
+  </channel>
+</rss>

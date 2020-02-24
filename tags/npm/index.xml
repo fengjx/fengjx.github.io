@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>npm on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/npm/</link>
+    <description>Recent content in npm on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/npm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>npm -&gt; yarn命令对照</title>
+      <link>https://blog.fengjx.com/npm-yarn/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/npm-yarn/</guid>
+      <description>npm -&amp;gt; yarn命令对照 npm(v5) yarn 说明 npm install yarn install - (N/A) yarn install &amp;ndash;flat - (N/A) yarn install &amp;ndash;har - npm install &amp;ndash;no-package-lock yarn install &amp;ndash;no-lockfile - (N/A) yarn install &amp;ndash;pure-lockfile - npm install [package] &amp;ndash;save yarn add [package] - npm install [package] &amp;ndash;save-dev yarn add [package] &amp;ndash;dev - (N/A) yarn add [package] &amp;ndash;peer - npm install [package] &amp;ndash;save-optional yarn add</description>
+    </item>
+    
+  </channel>
+</rss>

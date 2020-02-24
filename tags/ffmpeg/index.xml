@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ffmpeg on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/ffmpeg/</link>
+    <description>Recent content in ffmpeg on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 10 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/ffmpeg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ffmpeg下载m3u8直播流</title>
+      <link>https://blog.fengjx.com/ffmpeg-download-m3u8/</link>
+      <pubDate>Sat, 10 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/ffmpeg-download-m3u8/</guid>
+      <description>ffmpeg下载m3u8直播流 ffmpeg -i http://www.abc.com/aaa.m3u8 &amp;quot;filename.mp4&amp;quot;</description>
+    </item>
+    
+    <item>
+      <title>ffmpeg合并视频文件</title>
+      <link>https://blog.fengjx.com/ffmpeg-merge-video/</link>
+      <pubDate>Sat, 10 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/ffmpeg-merge-video/</guid>
+      <description>ffmpeg合并视频文件，对于 MPEG 格式的视频，可以直接连接： ffmpeg -i &amp;quot;concat:input1.mpg|input2.mpg|input3.mpg&amp;quot; -c copy output.mpg 对于非 MPEG 格式容器，但是是 MPEG 编码器（H.264、DivX、XviD、MP</description>
+    </item>
+    
+  </channel>
+</rss>

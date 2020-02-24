@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/mysql/</link>
+    <description>Recent content in mysql on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>mycli-强大的MySQL命令行客户端</title>
+      <link>https://blog.fengjx.com/mysql/mycli/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/mycli/</guid>
+      <description>mycli官网 https://www.mycli.net/ 安装 # Python Package pip install mycli # Debian/Ubuntu Package sudo apt-get update sudo apt-get install mycli # Fedora sudo dnf install mycli # RHEL, Centos: sudo yum install python-pip python-devel # macOS brew install mycli Windows安装：https://www.cod</description>
+    </item>
+    
+    <item>
+      <title>mysql常用命令整理</title>
+      <link>https://blog.fengjx.com/mysql/cmd/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/cmd/</guid>
+      <description>连接mysql server mysql -u${user} -p${password} -h${host} -P${port} -D${dbname} DCL -- 创建用户 create user &amp;#39;myuser&amp;#39;@&amp;#39;192.168.1.%&amp;#39; identified by &amp;#39;mypwd&amp;#39;; -- 创建数据库 create database mydb; create database mydb default character set utf8 collate utf8_bin; -- 将mydb所有表的所以权限授权给myuser grant all on</description>
+    </item>
+    
+    <item>
+      <title>mysql推荐使用规范</title>
+      <link>https://blog.fengjx.com/mysql/specification/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/specification/</guid>
+      <description>原文链接 一:基础规范 1、使用InnoDB存储引擎 支持事务、行级锁、并发性能更好、CPU及内存缓存页优化使得资源利用率更高 2、推荐使用utf8</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/mysql/lock/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/lock/</guid>
+      <description>锁 全局锁 全局锁会锁住整个MySQL实例，处于只读状态，所有数据更新的线程都会阻塞，包括： 数据更新语句（insert, update, delete） 数据定义</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/mysql/mysql-index/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/mysql-index/</guid>
+      <description>索引 常见的索引数据结构 key-value - 哈希表（数组）+ 链表：在数据量小的时候查询速度非常快，数据量大的时候需要遍历链表，对性能影响比较大。memcach</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/mysql/optimize/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/optimize/</guid>
+      <description>MySQL优化 explain explain执行计划返回字段含义 字段 说明 备注 id B1 C1 select_type B2 C2 A3 B3 C3</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/mysql/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/readme/</guid>
+      <description>mysql 常用存储引擎 查看MySQL默认存储引擎 show variables like &amp;#39;%storage_engine&amp;#39;; 对比 | - | MyIsam | InnoDB | | &amp;mdash;&amp;mdash;- | :&amp;mdash;&amp;mdash; | :&amp;mdash;&amp;ndash;: | | 存储空间 | 占用少 | 占用相对多 | | 主、外键 | 不支持 | 支持 | |</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/mysql/transaction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/transaction/</guid>
+      <description>事务(Transaction） 事务特性: ACID https://zh.wikipedia.org/wiki/ACID Atomicity（原子性）：一个事务中的所有操作，或者全部完成，或者全部不完成，不会结束在中间</description>
+    </item>
+    
+  </channel>
+</rss>

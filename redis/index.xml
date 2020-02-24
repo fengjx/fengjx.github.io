@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/redis/</link>
+    <description>Recent content in Redis on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+        <atom:link href="https://blog.fengjx.com/redis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/redis/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/redis/readme/</guid>
+      <description>redis redis为什么块 数据保存在内存 数据结构简单（多数数据结构都是重写过的） 非阻塞IO 单线程，没有上下文切换 redis数据结构 list 当元素的数据小</description>
+    </item>
+    
+  </channel>
+</rss>

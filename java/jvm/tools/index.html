@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        jvm-05-监控分析工具 - 冯小小，一个开发者
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="jvm自带和第三方监控分析工具" />
+  <meta name="generator" content="Hugo 0.65.3 with theme pure" />
+  <title>jvm-05-监控分析工具 - 冯小小，一个开发者</title>
+  
+
+  <link rel="stylesheet" href="https://blog.fengjx.com/css/style.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <meta property="og:title" content="jvm-05-监控分析工具" />
+<meta property="og:description" content="jvm自带和第三方监控分析工具" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.fengjx.com/java/jvm/tools/" />
+<meta property="article:published_time" content="2019-11-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-19T00:00:00+00:00" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/gc/" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/jvm-option/" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/default/" /><meta property="og:see_also" content="https://blog.fengjx.com/java/jvm/jvm-runtime-data-area/" />
+
+<meta itemprop="name" content="jvm-05-监控分析工具">
+<meta itemprop="description" content="jvm自带和第三方监控分析工具">
+<meta itemprop="datePublished" content="2019-11-19T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-19T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3237">
+
+
+
+<meta itemprop="keywords" content="jvm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="jvm-05-监控分析工具"/>
+<meta name="twitter:description" content="jvm自带和第三方监控分析工具"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+  <body class="main-center" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/fengjx" target="_blank">
+            <img class="img-circle img-rotate" src="https://blog.fengjx.com/4881720.jpg" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">冯小小，一个开发者</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>GuangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">首页</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">分类</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">标签</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-post">
+                <a href="/posts">
+                    <i class="icon icon-list"></i>
+                  <span class="menu-title">其他</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-links">
+                <a href="/links">
+                    <i class="icon icon-friendship"></i>
+                  <span class="menu-title">友链</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">关于</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>hello developer</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/java/" class="category-list-link">java</a><span class="category-list-count">13</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="category-list-link">linux常用命令</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/mysql/" class="category-list-link">mysql</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/tools/" class="category-list-link">tools</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/zookeeper/" class="category-list-link">zookeeper</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%85%B6%E4%BB%96/" class="category-list-link">其他</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://blog.fengjx.com/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-list-link">微服务</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/curl/" class="tag-list-link">curl</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/eclipse/" class="tag-list-link">eclipse</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ffmpeg/" class="tag-list-link">ffmpeg</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/git/" class="tag-list-link">git</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/google/" class="tag-list-link">google</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/index/" class="tag-list-link">index</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/io/" class="tag-list-link">io</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/java8/" class="tag-list-link">java8</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/jvm/" class="tag-list-link">jvm</a><span
+                    class="tag-list-count">5</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/libreoffice/" class="tag-list-link">libreoffice</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mac/" class="tag-list-link">mac</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/manjaro/" class="tag-list-link">manjaro</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/mysql/" class="tag-list-link">mysql</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/netty/" class="tag-list-link">netty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/npm/" class="tag-list-link">npm</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/openresty/" class="tag-list-link">openresty</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/socket/" class="tag-list-link">socket</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/supervisor/" class="tag-list-link">supervisor</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/ububtu/" class="tag-list-link">ububtu</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/yarn/" class="tag-list-link">yarn</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/zookeeper/" class="tag-list-link">zookeeper</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://blog.fengjx.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="tag-list-link">多线程</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+  <aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+    <div class="slimContent">
+      <nav id="toc" class="article-toc">
+        <h3 class="toc-title">文章目录</h3>
+        <div class="toc-content always-active"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#jps">jps</a></li>
+    <li><a href="#jstat">jstat</a>
+      <ul>
+        <li><a href="#gcutil-虚拟机统计信息监控工具">gcutil: 虚拟机统计信息监控工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#jinfo-java配置信息查看工具">jinfo: java配置信息查看工具</a></li>
+    <li><a href="#jmap-java内存快照监控工具">jmap: java内存快照监控工具</a></li>
+    <li><a href="#jhat-虚拟机堆转储快照分析工具">jhat: 虚拟机堆转储快照分析工具</a></li>
+    <li><a href="#jstack-java堆栈跟踪工具">jstack: java堆栈跟踪工具</a></li>
+  </ul>
+</nav>
+        </div>
+      </nav>
+    </div>
+  </aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/java/jvm/tools/"
+    >jvm-05-监控分析工具</a
+  >
+</h1>
+
+      <div class="article-meta">
+        <span class="article-date">
+  <i class="icon icon-calendar-check"></i>
+<a href="https://blog.fengjx.com/java/jvm/tools/" class="article-date">
+  <time datetime="2019-11-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-11-19</time>
+</a>
+</span><span class="article-category">
+  <i class="icon icon-folder"></i>
+  <a class="article-category-link" href="/categories/java/"> java </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+    <a class="article-tag-link" href="/tags/jvm/"> jvm </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/java/jvm/tools/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计:3237字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长:7分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      <p>文中案例均基于JDK8</p>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://book.douban.com/subject/24722612/">深入理解Java虚拟机（第2版）</a> 第4章</li>
+</ul>
+<h1 id="第三方工具">第三方工具</h1>
+<ul>
+<li><a href="https://github.com/alibaba/arthas">arthas</a> 阿里开源的Java诊断利器</li>
+<li><a href="https://opts.console.perfma.com/">perfma</a> 国内jvm在线分析平台</li>
+<li><a href="https://sourceforge.net/projects/gcviewer/">GCViewer</a>  图形化gc日志分析工具</li>
+<li><a href="https://www.gceasy.io/index.jsp">GCeasy</a> 在线gc日志分析工具</li>
+</ul>
+<h1 id="jdk自带工具">JDK自带工具</h1>
+<h2 id="jps">jps</h2>
+<p>官方参考文档：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jps.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jps.html</a></p>
+<p>查看java进程ID，同样可以查看远程服务的java进程</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jps --help
+illegal argument: --help
+usage: jps <span style="color:#f92672">[</span>-help<span style="color:#f92672">]</span>
+       jps <span style="color:#f92672">[</span>-q<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-mlvV<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>&lt;hostid&gt;<span style="color:#f92672">]</span>
+
+Definitions:
+    &lt;hostid&gt;:      &lt;hostname&gt;<span style="color:#f92672">[</span>:&lt;port&gt;<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># 查看java进程ID</span>
+$ jps
+<span style="color:#ae81ff">19559</span> hello.jar
+<span style="color:#ae81ff">2151</span> world.jar
+
+<span style="color:#75715e"># 仅显示进程号</span>
+$ jps -q
+<span style="color:#ae81ff">48997</span>
+<span style="color:#ae81ff">38406</span>
+
+<span style="color:#75715e"># 查看java进程和main方法接收的参数</span>
+$ jps -m
+<span style="color:#ae81ff">19559</span> springbootapp.jar --spring.profiles.active<span style="color:#f92672">=</span>test --server.port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span>
+
+<span style="color:#75715e"># 查看java进程启动时的jvm参数</span>
+$ jps -v
+<span style="color:#ae81ff">48997</span> hello.jar -Dfile.encoding<span style="color:#f92672">=</span>utf8 -Xms1g -Xmx1g -XX:InitialBootClassLoaderMetaspaceSize<span style="color:#f92672">=</span>64M -XX:MaxMetaspaceSize<span style="color:#f92672">=</span>256M -XX:+DisableExplicitGC -XX:+UseG1GC -XX:MaxGCPauseMillis<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
+
+<span style="color:#75715e"># 查看java进程和执行的jar文件或者主类完整路径</span>
+$ jps -l
+<span style="color:#ae81ff">48997</span> /home/fengjx/demo/app.jar
+<span style="color:#ae81ff">38406</span> com.fengjx.app.ServerBootApp
+
+<span style="color:#75715e"># 不常用，查看通过flag文件传递到jvm中的参数</span>
+$ jps -V
+</code></pre></div><h2 id="jstat">jstat</h2>
+<p>官方参考文档：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html</a></p>
+<p><code>jstat -options</code>查看jstat可以查询哪些数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jstat -options
+-class              <span style="color:#75715e"># 显示类装载、卸载数量、总空间和类装载耗时</span>
+-compiler           <span style="color:#75715e"># 显示JIT编译器编译过程统计信息</span>
+-gc                 <span style="color:#75715e"># 显示java堆情况，包括Eden、Survivor、老年代、永久代（元空间）容量和GC合计信息</span>
+-gccapacity         <span style="color:#75715e"># 显示内容和-gc基本相同，主要关注各区域的最大、最小空间</span>
+-gcutil             <span style="color:#75715e"># 显示内容和-gc基本相同，主要关注已使用空间百分比</span>
+-gccause            <span style="color:#75715e"># 与-gcutil相同，但是会额外输出上一次GC产生原因</span>
+-gcmetacapacity     <span style="color:#75715e"># 显示元空间使用的最大、最小空间</span>
+-gcnew              <span style="color:#75715e"># 显示新生代GC状况</span>
+-gcnewcapacity      <span style="color:#75715e"># 显示内容和-gcnew基本相同，主要关注使用到的最大、最小空间</span>
+-gcold              <span style="color:#75715e"># 显示老年代GC状况</span>
+-gcoldcapacity      <span style="color:#75715e"># 显示内容和-gcold基本相同，主要关注使用到的最大、最小空间</span>
+-printcompilation   <span style="color:#75715e"># 显示已经被JIT编译的方法</span>
+</code></pre></div><h3 id="gcutil-虚拟机统计信息监控工具">gcutil: 虚拟机统计信息监控工具</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 15200是进程号，1s表示每隔1秒输出一次，可以指定count，在执行count次数后退出</span>
+<span style="color:#75715e"># jstat -gcutil &lt;pid&gt; &lt;interval&gt; &lt;count&gt;</span>
+jstat -gcutil <span style="color:#ae81ff">15200</span> 1s
+S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT   
+0.00  66.05  28.80  93.85  24.03  93.78  <span style="color:#ae81ff">45401</span> 1731.240    <span style="color:#ae81ff">12</span>   22.165 1753.405
+0.00  66.05  51.80  93.85  24.03  93.78  <span style="color:#ae81ff">45401</span> 1731.240    <span style="color:#ae81ff">12</span>   22.165 1753.405
+0.00  66.05  62.20  93.85  24.03  93.78  <span style="color:#ae81ff">45401</span> 1731.240    <span style="color:#ae81ff">12</span>   22.165 1753.405
+</code></pre></div><ul>
+<li>S0: S0当前使用率 - Survivor space 0 utilization as a percentage of the space&rsquo;s current capacity.</li>
+<li>S1: S1当前使用率 - Survivor space 1 utilization as a percentage of the space&rsquo;s current capacity.</li>
+<li>E: Eden当前使用率 - Eden space utilization as a percentage of the space&rsquo;s current capacity.</li>
+<li>O: 老年代当前使用率 - Old space utilization as a percentage of the space&rsquo;s current capacity.</li>
+<li>M: 元空间当前使用率 - Metaspace utilization as a percentage of the space&rsquo;s current capacity.</li>
+<li>CCS: 压缩类空间使用率 - Compressed class space utilization as a percentage.</li>
+<li>YGC: Young GC发生次数 - Number of young generation GC events.</li>
+<li>YGCT: Young GC总耗时 - Young generation garbage collection time.</li>
+<li>FGC: Full GC发生次数 - Number of full GC events.</li>
+<li>FGCT: Full GC总耗时 - Full garbage collection time.</li>
+<li>GCT: GC总耗时 - Total garbage collection time.</li>
+</ul>
+<h2 id="jinfo-java配置信息查看工具">jinfo: java配置信息查看工具</h2>
+<p>官方参考文档：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jinfo.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jinfo.html</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 格式：jinfo [option] pid</span>
+
+<span style="color:#75715e"># 打印java进程参数信息，包括系统参数和jvm参数</span>
+$ jinfo <span style="color:#ae81ff">19205</span>
+Attaching to process ID 19205, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.161-b12
+Java System Properties:
+
+java.runtime.name <span style="color:#f92672">=</span> Java<span style="color:#f92672">(</span>TM<span style="color:#f92672">)</span> SE Runtime Environment
+java.vm.version <span style="color:#f92672">=</span> 25.161-b12
+sun.boot.library.path <span style="color:#f92672">=</span> /home/fengjx/app/jdk1.8.0_161/jre/lib/amd64
+java.protocol.handler.pkgs <span style="color:#f92672">=</span> org.springframework.boot.loader
+java.vendor.url <span style="color:#f92672">=</span> http://java.oracle.com/
+java.vm.vendor <span style="color:#f92672">=</span> Oracle Corporation
+path.separator <span style="color:#f92672">=</span> :
+file.encoding.pkg <span style="color:#f92672">=</span> sun.io
+java.vm.name <span style="color:#f92672">=</span> Java HotSpot<span style="color:#f92672">(</span>TM<span style="color:#f92672">)</span> 64-Bit Server VM
+...
+...
+
+VM Flags:
+Non-default VM flags: -XX:CICompilerCount<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span> -XX:ConcGCThreads<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span> -XX:G1HeapRegionSize<span style="color:#f92672">=</span><span style="color:#ae81ff">1048576</span> -XX:GCLogFileSize<span style="color:#f92672">=</span><span style="color:#ae81ff">10485760</span> -XX:InitialBootClassLoaderMetaspaceSize<span style="color:#f92672">=</span><span style="color:#ae81ff">67108864</span> -XX:InitialHeapSize<span style="color:#f92672">=</span><span style="color:#ae81ff">1073741824</span> -XX:MarkStackSize<span style="color:#f92672">=</span><span style="color:#ae81ff">4194304</span> -XX:MaxGCPauseMillis<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span> -XX:MaxHeapSize<span style="color:#f92672">=</span><span style="color:#ae81ff">1073741824</span> -XX:MaxMetaspaceSize<span style="color:#f92672">=</span><span style="color:#ae81ff">268435456</span> -XX:MaxNewSize<span style="color:#f92672">=</span><span style="color:#ae81ff">643825664</span> -XX:MinHeapDeltaBytes<span style="color:#f92672">=</span><span style="color:#ae81ff">1048576</span> -XX:NumberOfGCLogFiles<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseFastUnorderedTimeStamps -XX:+UseG1GC -XX:+UseGCLogFileRotation
+Command line:  -Xms1g -Xmx1g -XX:InitialBootClassLoaderMetaspaceSize<span style="color:#f92672">=</span>64M -XX:MaxMetaspaceSize<span style="color:#f92672">=</span>256M -XX:+DisableExplicitGC -XX:+UseG1GC -XX:MaxGCPauseMillis<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span> -Xloggc:/home/fengjx/logs/app/gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> -XX:GCLogFileSize<span style="color:#f92672">=</span>10M -DlogFile.dir<span style="color:#f92672">=</span>/home/fengjx/logs/app
+
+<span style="color:#75715e"># 查看是否使用了G1GC</span>
+$ jinfo -flag UseG1GC <span style="color:#ae81ff">19205</span>
+-XX:+UseG1GC
+<span style="color:#75715e"># 查看期望GC停顿时间</span>
+$ jinfo -flag MaxGCPauseMillis <span style="color:#ae81ff">19205</span>
+-XX:MaxGCPauseMillis<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>
+
+<span style="color:#75715e"># 在不重启进程的情况下动态调整JVM参数</span>
+<span style="color:#75715e"># jinfo -flag [+|-]&lt;name&gt; $pid 修改bool类型参数</span>
+<span style="color:#75715e"># jinfo -flag &lt;name&gt;=&lt;value&gt; $pid 修改制定参数值</span>
+<span style="color:#75715e"># 动态参数调整有限制，只有下面这些参数才可以动态调整</span>
+$ java -XX:+PrintFlagsFinal -version | grep manageable
+    intx CMSAbortablePrecleanWaitMillis            <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>                                 <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    intx CMSTriggerInterval                        <span style="color:#f92672">=</span> -1                                  <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    intx CMSWaitDuration                           <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>                                <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool HeapDumpAfterFullGC                       <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool HeapDumpBeforeFullGC                      <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool HeapDumpOnOutOfMemoryError                <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    ccstr HeapDumpPath                              <span style="color:#f92672">=</span>                                     <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    uintx MaxHeapFreeRatio                          <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>                                 <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    uintx MinHeapFreeRatio                          <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>                                   <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintClassHistogram                       <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintClassHistogramAfterFullGC            <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintClassHistogramBeforeFullGC           <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintConcurrentLocks                      <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintGC                                   <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintGCDateStamps                         <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintGCDetails                            <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintGCID                                 <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+    bool PrintGCTimeStamps                         <span style="color:#f92672">=</span> false                               <span style="color:#f92672">{</span>manageable<span style="color:#f92672">}</span>
+java version <span style="color:#e6db74">&#34;1.8.0_161&#34;</span>
+Java<span style="color:#f92672">(</span>TM<span style="color:#f92672">)</span> SE Runtime Environment <span style="color:#f92672">(</span>build 1.8.0_161-b12<span style="color:#f92672">)</span>
+Java HotSpot<span style="color:#f92672">(</span>TM<span style="color:#f92672">)</span> 64-Bit Server VM <span style="color:#f92672">(</span>build 25.161-b12, mixed mode<span style="color:#f92672">)</span>
+
+<span style="color:#75715e"># 动态修改打印gc触发时间</span>
+$ jinfo -flag +PrintGCDateStamps <span style="color:#ae81ff">48997</span>
+<span style="color:#75715e"># 动态修改java堆dump文件输出路径</span>
+jinfo -flag HeapDumpPath<span style="color:#f92672">=</span>/home/fengjx/app/logs <span style="color:#ae81ff">48997</span>
+</code></pre></div><h2 id="jmap-java内存快照监控工具">jmap: java内存快照监控工具</h2>
+<p>官方参考文档：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jmap.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jmap.html</a></p>
+<p>命令格式：<code>jmap [ option ] pid</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jmap -h
+Usage:
+    jmap <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> &lt;pid&gt;
+        <span style="color:#f92672">(</span>to connect to running process<span style="color:#f92672">)</span>
+    jmap <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> &lt;executable &lt;core&gt;
+        <span style="color:#f92672">(</span>to connect to a core file<span style="color:#f92672">)</span>
+    jmap <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>server_id@<span style="color:#f92672">]</span>&lt;remote server IP or hostname&gt;
+        <span style="color:#f92672">(</span>to connect to remote debug server<span style="color:#f92672">)</span>
+
+where &lt;option&gt; is one of:
+    &lt;none&gt;               to print same info as Solaris pmap
+    -heap                to print java heap summary
+    -histo<span style="color:#f92672">[</span>:live<span style="color:#f92672">]</span>        to print histogram of java object heap; <span style="color:#66d9ef">if</span> the <span style="color:#e6db74">&#34;live&#34;</span>
+                         suboption is specified, only count live objects
+    -clstats             to print class loader statistics
+    -finalizerinfo       to print information on objects awaiting finalization
+    -dump:&lt;dump-options&gt; to dump java heap in hprof binary format
+                         dump-options:
+                           live         dump only live objects; <span style="color:#66d9ef">if</span> not specified,
+                                        all objects in the heap are dumped.
+                           format<span style="color:#f92672">=</span>b     binary format
+                           file<span style="color:#f92672">=</span>&lt;file&gt;  dump heap to &lt;file&gt;
+                         Example: jmap -dump:live,format<span style="color:#f92672">=</span>b,file<span style="color:#f92672">=</span>heap.bin &lt;pid&gt;
+    -F                   force. Use with -dump:&lt;dump-options&gt; &lt;pid&gt; or -histo
+                         to force a heap dump or histogram when &lt;pid&gt; does not
+                         respond. The <span style="color:#e6db74">&#34;live&#34;</span> suboption is not supported
+                         in this mode.
+    -h | -help           to print this help message
+    -J&lt;flag&gt;             to pass &lt;flag&gt; directly to the runtime system    
+</code></pre></div><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-dump</td>
+<td>生成java堆快照</td>
+<td>格式：<code>-dump:[live,]format=b,file=&lt;filename&gt; $pid</code> <!-- raw HTML omitted --> live表示是否只dump出存活对象 <!-- raw HTML omitted --> eg: jmap -dump:live,format=b,file=dump.bin 1349</td>
+</tr>
+<tr>
+<td>-histo</td>
+<td>显示堆中对象统计信息：类、实例数量、合计容量</td>
+<td>格式：<code>-histo[:live] $pid</code> <!-- raw HTML omitted --> live表示是否只dump出存活对象 <!-- raw HTML omitted --> eg: jmap -histo:live 1349（通常输出的内容太多，可以加 <code>| head -10</code>，只看前10行）</td>
+</tr>
+<tr>
+<td>-heap</td>
+<td>显示java堆详细信息：使用哪种回收器、参数配置、分代情况等</td>
+<td>只在Linux / Solaris平台有效</td>
+</tr>
+<tr>
+<td>-finalizerinfo</td>
+<td>显示在F-Queue中等待Finalizer线程执行finalize方法的对象</td>
+<td>只在Linux / Solaris平台有效</td>
+</tr>
+<tr>
+<td>-permstat</td>
+<td>以ClassLoader为统计口径显示永久代内存状态</td>
+<td>只在Linux / Solaris平台有效</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>当虚拟机进程对 -dump 选项没有响应时，可以使用这个选项强制生成dump快照</td>
+<td>只在Linux / Solaris平台有效</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>输出java进程存活对象快照，快照文件可以用jdk自带的jhat、VisualVM和MAT (Memory Analyzer Tool)进行分析</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jmap -dump:live,format<span style="color:#f92672">=</span>b,file<span style="color:#f92672">=</span>dump.bin <span style="color:#ae81ff">997</span>
+Dumping heap to /home/app/logs/jvm/dump.bin ...
+Heap dump file created
+</code></pre></div></li>
+<li>
+<p>输出各对象内存占用信息top n</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jmap -histo:live <span style="color:#ae81ff">997</span> | head -10
+num     <span style="color:#75715e">#instances         #bytes  class name</span>
+----------------------------------------------
+1:         <span style="color:#ae81ff">81758</span>       <span style="color:#ae81ff">11251848</span>  <span style="color:#f92672">[</span>C
+2:         <span style="color:#ae81ff">80423</span>        <span style="color:#ae81ff">1930152</span>  java.lang.String
+3:         <span style="color:#ae81ff">44951</span>        <span style="color:#ae81ff">1438432</span>  java.util.concurrent.ConcurrentHashMap$Node
+4:         <span style="color:#ae81ff">11237</span>        <span style="color:#ae81ff">1246448</span>  java.lang.Class
+5:         <span style="color:#ae81ff">12979</span>         <span style="color:#ae81ff">957472</span>  <span style="color:#f92672">[</span>Ljava.util.HashMap$Node;
+6:           <span style="color:#ae81ff">455</span>         <span style="color:#ae81ff">859568</span>  <span style="color:#f92672">[</span>Ljava.util.concurrent.ConcurrentHashMap$Node;
+7:         <span style="color:#ae81ff">21068</span>         <span style="color:#ae81ff">842720</span>  java.util.LinkedHashMap$Entry
+</code></pre></div><ul>
+<li>
+<p>instances表示实例数</p>
+</li>
+<li>
+<p>bytes表示占用内存大小（字节）</p>
+</li>
+<li>
+<p>class name表示对象类名</p>
+<ul>
+<li>[C is a char[]</li>
+<li>[S is a short[]</li>
+<li>[I is a int[]</li>
+<li>[B is a byte[]</li>
+<li>[[I is a int[][]</li>
+</ul>
+<blockquote>
+<p>[C对象一般跟String有关，String内部使用final char[]数组来保存数据</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="jhat-虚拟机堆转储快照分析工具">jhat: 虚拟机堆转储快照分析工具</h2>
+<p>官方参考文档：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jhat.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jhat.html</a></p>
+<p>jhat (JVM Heap Analysis Tool)命令与jmap配合使用，来分析jmap生成的堆快照文件。jhat内置内置了一个微型http服务，可以直接在浏览器中查看dump文件分析结果。</p>
+<blockquote>
+<p>实际工作中很少使用jhat来分析dump文件。通常是将dump文件传到其他机器，或者开发机，通过其他工具（例如：VisualVM和MAT）进行分析。</p>
+</blockquote>
+<p>执行<code>jhat &lt;filename&gt;</code>后，直接访问：http://localhost:7000 就能看到分析结果</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jhat dump.bin
+Reading from dump.bin...
+Dump file created Wed Nov <span style="color:#ae81ff">20</span> 22:32:37 CST <span style="color:#ae81ff">2019</span>
+Snapshot read, resolving...
+Resolving <span style="color:#ae81ff">570509</span> objects...
+Chasing references, expect <span style="color:#ae81ff">114</span> dots..................................................................................................................
+Eliminating duplicate references..................................................................................................................
+Snapshot resolved.
+Started HTTP server on port <span style="color:#ae81ff">7000</span>
+Server is ready.
+</code></pre></div><h2 id="jstack-java堆栈跟踪工具">jstack: java堆栈跟踪工具</h2>
+<p>jstack (Stack Trace For Java) 命令可以生产虚拟机当前时刻的线程快照（threaddump），用来定位线程出现长时间停顿的原因。例如：线程死锁、死循环、请求外部资源（例如：IO请求）等。</p>
+<p>命令格式：<code>jstack [option] pid</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jstack -h
+Usage:
+    jstack <span style="color:#f92672">[</span>-l<span style="color:#f92672">]</span> &lt;pid&gt;
+        <span style="color:#f92672">(</span>to connect to running process<span style="color:#f92672">)</span>
+    jstack -F <span style="color:#f92672">[</span>-m<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-l<span style="color:#f92672">]</span> &lt;pid&gt;
+        <span style="color:#f92672">(</span>to connect to a hung process<span style="color:#f92672">)</span>
+    jstack <span style="color:#f92672">[</span>-m<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-l<span style="color:#f92672">]</span> &lt;executable&gt; &lt;core&gt;
+        <span style="color:#f92672">(</span>to connect to a core file<span style="color:#f92672">)</span>
+    jstack <span style="color:#f92672">[</span>-m<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-l<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>server_id@<span style="color:#f92672">]</span>&lt;remote server IP or hostname&gt;
+        <span style="color:#f92672">(</span>to connect to a remote debug server<span style="color:#f92672">)</span>
+
+Options:
+    -F  to force a thread dump. Use when jstack &lt;pid&gt; does not respond <span style="color:#f92672">(</span>process is hung<span style="color:#f92672">)</span>
+    -m  to print both java and native frames <span style="color:#f92672">(</span>mixed mode<span style="color:#f92672">)</span>
+    -l  long listing. Prints additional information about locks
+    -h or -help to print this help message
+</code></pre></div><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-F</td>
+<td>当正常输出的请求不被响应时，强制输出线程堆栈</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>出堆栈外，显示关于锁的附加信息</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>如果调用到本地方法的话，可以显示C/C++的堆栈</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jstack -l <span style="color:#ae81ff">31994</span>
+2019-11-20 23:32:12
+Full thread dump OpenJDK 64-Bit Server VM <span style="color:#f92672">(</span>11-internal+125 mixed mode<span style="color:#f92672">)</span>:
+
+Threads class SMR info:
+_java_thread_list<span style="color:#f92672">=</span>0x00007fd3087b6430, length<span style="color:#f92672">=</span>16, elements<span style="color:#f92672">={</span>
+0x00007fd309015000, 0x00007fd30a018800, 0x00007fd30a01b800, 0x00007fd30a01d800,
+0x00007fd30885f000, 0x00007fd30a00f800, 0x00007fd309035000, 0x00007fd30a068800,
+0x00007fd3088ec000, 0x00007fd3088e4800, 0x00007fd309042000, 0x00007fd3091c4800,
+0x00007fd3098b4000, 0x00007fd309209000, 0x00007fd30920a000, 0x00007fd30a1ba800
+<span style="color:#f92672">}</span>
+
+<span style="color:#e6db74">&#34;main&#34;</span> <span style="color:#75715e">#1 prio=5 os_prio=31 cpu=847.59ms elapsed=4363.85s tid=0x00007fd309015000 nid=0x1703 in Object.wait()  [0x0000700004f9c000]</span>
+   java.lang.Thread.State: TIMED_WAITING <span style="color:#f92672">(</span>on object monitor<span style="color:#f92672">)</span>
+	at java.lang.Object.wait<span style="color:#f92672">(</span>java.base@11-internal/Native Method<span style="color:#f92672">)</span>
+	- waiting on &lt;no object reference available&gt;
+	at com.intellij.execution.rmi.RemoteServer.start<span style="color:#f92672">(</span>RemoteServer.java:89<span style="color:#f92672">)</span>
+	- waiting to re-lock in wait<span style="color:#f92672">()</span> &lt;0x00000007d0174fd8&gt; <span style="color:#f92672">(</span>a java.lang.Object<span style="color:#f92672">)</span>
+	at org.jetbrains.idea.maven.server.RemoteMavenServer36.main<span style="color:#f92672">(</span>RemoteMavenServer36.java:23<span style="color:#f92672">)</span>
+
+   Locked ownable synchronizers:
+	- None
+</code></pre></div><p>通常输出的内容会比较多，可以将内容输出到文件中，通过其他工具来分析（ 例如： <a href="https://thread.console.perfma.com">perfma，一个国内jvm在线分析平台</a> ）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">jstack -l <span style="color:#ae81ff">31994</span> &gt; app-31994.jstack
+</code></pre></div><p>线程状态：</p>
+<ul>
+<li><strong>Deadlock: 死锁</strong></li>
+<li><strong>Waiting on condition: 等待资源</strong></li>
+<li><strong>Waiting on monitor entry: 等待获取监视器</strong></li>
+<li><strong>Blocked: 阻塞</strong></li>
+<li>Runnable: 执行中</li>
+<li>Suspended: 暂停</li>
+<li>TIMED_WAITING: 对象等待中</li>
+<li>Parked: 停止</li>
+</ul>
+
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://blog.fengjx.com/java/jvm/gc/" title="jvm-03-垃圾收集"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://blog.fengjx.com/openresty/gateway/"
+                    title="OpenResty从入门到开发一个网关服务"><span>下一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/fengjx" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://blog.fengjx.com/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+   window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/rust.min.js"></script>
+<script type="text/javascript"
+   src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script>
+hljs.configure({
+  tabReplace: '    ', 
+  classPrefix: ''     
+                      
+})
+hljs.initHighlightingOnLoad();
+</script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/application.js"></script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/plugin.js"></script>
+<script>
+      (function (window) {
+          var INSIGHT_CONFIG = {
+              TRANSLATION: {
+                  POSTS: '文章',
+                  PAGES: '页面',
+                  CATEGORIES: '分类',
+                  TAGS: '标签',
+                  UNTITLED: '(未命名)',
+              },
+              ROOT_URL: 'https:\/\/blog.fengjx.com\/',
+              CONTENT_URL: 'https:\/\/blog.fengjx.com\/searchindex.json ',
+          };
+          window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+      })(window);
+      </script>
+<script type="text/javascript" src="https://blog.fengjx.com/js/insight.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'f49d3c3d06c237042f7d',
+        clientSecret: 'b4ee0f2b6fc1fa9420ab32f3eedebcb352824f4f',
+        repo: 'blog.fengjx.com-comment',
+        owner: 'fengjx',
+        admin: ['fengjx'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f6a47084e6751918976e30132a5e7a5e";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+  </body>
+</html>

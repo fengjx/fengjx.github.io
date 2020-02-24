@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/</link>
+    <description>Recent content on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 13 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>优秀开源项目、博客、书籍汇总</title>
+      <link>https://blog.fengjx.com/awesome/</link>
+      <pubDate>Thu, 13 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/awesome/</guid>
+      <description>博客、教程 并发编程网 让天下没有难学的技术 grokonez 各种软件开发教程网站，包括前端后端 meituan 美团技术博客 How-To-Ask-Questions-The-Smart-Way 提问的智慧 free-programming-books-zh_CN 免费的计算机编程类中文书籍 awesome-programming-books 经典编程</description>
+    </item>
+    
+    <item>
+      <title>openresty</title>
+      <link>https://blog.fengjx.com/openresty/</link>
+      <pubDate>Sun, 23 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/openresty/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>https://blog.fengjx.com/tools/</link>
+      <pubDate>Wed, 25 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://blog.fengjx.com/java/</link>
+      <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://blog.fengjx.com/mysql/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Posts</title>
+      <link>https://blog.fengjx.com/posts/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zookeepers</title>
+      <link>https://blog.fengjx.com/zookeeper/</link>
+      <pubDate>Sat, 20 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/zookeeper/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://blog.fengjx.com/about/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/about/</guid>
+      <description>架构就是用最简单、可控的组件分层解决业务问题。 选择比努力更重要。拿不动的东西越早放弃越好，做了减法，才能做加法，生也有涯，该放就放。专注于做</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.fengjx.com/links/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/links/</guid>
+      <description>友情链接  Love2.io ibooker 美团技术团队 纯洁的微笑 程序猿DD spring4all springcloud中文网 天猫前端 张云龙 techempower-benchmarks 伯乐在线 阮一峰 六阿哥  </description>
+    </item>
+    
+    <item>
+      <title>Distributeds</title>
+      <link>https://blog.fengjx.com/distributed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/distributed/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elks</title>
+      <link>https://blog.fengjx.com/elk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/elk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hadoops</title>
+      <link>https://blog.fengjx.com/hadoop/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/hadoop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hammerspoons</title>
+      <link>https://blog.fengjx.com/hammerspoon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/hammerspoon/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Interviews</title>
+      <link>https://blog.fengjx.com/interview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/interview/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kafkas</title>
+      <link>https://blog.fengjx.com/kafka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linuxes</title>
+      <link>https://blog.fengjx.com/linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>https://blog.fengjx.com/redis/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/redis/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

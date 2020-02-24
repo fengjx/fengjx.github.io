@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LibreOffice on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/tags/libreoffice/</link>
+    <description>Recent content in LibreOffice on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 21 Oct 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/tags/libreoffice/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ubuntu下彻底卸载LibreOffice方法</title>
+      <link>https://blog.fengjx.com/ubuntu-uninstall-libreoffice/</link>
+      <pubDate>Fri, 21 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/ubuntu-uninstall-libreoffice/</guid>
+      <description>sudo apt-get purge libreoffice? 或 sudo aptitude purge libreoffice? 不要漏掉通配符“?”，否则无法清除/卸载全部 LibreOffice 软件包 或者 sudo apt-get remove --purge libreoffice*</description>
+    </item>
+    
+  </channel>
+</rss>

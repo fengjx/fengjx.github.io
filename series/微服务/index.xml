@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>微服务 on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/series/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
+    <description>Recent content in 微服务 on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 23 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/series/%E5%BE%AE%E6%9C%8D%E5%8A%A1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OpenResty从入门到开发一个网关服务</title>
+      <link>https://blog.fengjx.com/openresty/gateway/</link>
+      <pubDate>Sun, 23 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/openresty/gateway/</guid>
+      <description>原文连接：https://blog.fengjx.com/openresty/gateway/ 简介 OpenResty（也称为 ngx_open</description>
+    </item>
+    
+  </channel>
+</rss>

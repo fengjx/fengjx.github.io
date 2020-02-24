@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java网络编程 on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/series/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</link>
+    <description>Recent content in java网络编程 on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 10 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/series/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>java io实践与总结</title>
+      <link>https://blog.fengjx.com/java/socket/java-io/</link>
+      <pubDate>Mon, 10 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/socket/java-io/</guid>
+      <description>bio java.io和java.net包，代码简单直观，同步/阻塞IO，一个连接需要一个处理线程，如果是几百个连接的应用，不会有什么问题，如果连</description>
+    </item>
+    
+    <item>
+      <title>netty介绍</title>
+      <link>https://blog.fengjx.com/java/socket/netty/</link>
+      <pubDate>Mon, 10 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/socket/netty/</guid>
+      <description>优点 性能高、易用、java中几乎所有框架的网络通信都使用netty。 沾包、拆包 沾包、拆包问题的产生是因为TCP协议是基于数据流的协议，就像流</description>
+    </item>
+    
+  </channel>
+</rss>

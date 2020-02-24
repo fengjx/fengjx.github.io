@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jvm on 冯小小，一个开发者</title>
+    <link>https://blog.fengjx.com/series/jvm/</link>
+    <description>Recent content in jvm on 冯小小，一个开发者</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 19 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.fengjx.com/series/jvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jvm-05-监控分析工具</title>
+      <link>https://blog.fengjx.com/java/jvm/tools/</link>
+      <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/jvm/tools/</guid>
+      <description>文中案例均基于JDK8 Reference 深入理解Java虚拟机（第2版） 第4章 第三方工具 arthas 阿里开源的Java诊断利器 perfma 国内jvm在线分析平台 GCViewer 图形化gc日志</description>
+    </item>
+    
+    <item>
+      <title>jvm-03-垃圾收集</title>
+      <link>https://blog.fengjx.com/java/jvm/gc/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/jvm/gc/</guid>
+      <description>Reference 深入理解Java虚拟机（第2版） 这次，真正学懂 Java 垃圾回收机制 不用找了，深入理解G1垃圾收集器和GC日志，都整理好了 46张PPT讲述JVM、</description>
+    </item>
+    
+    <item>
+      <title>jvm-04-参数配置</title>
+      <link>https://blog.fengjx.com/java/jvm/jvm-option/</link>
+      <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/jvm/jvm-option/</guid>
+      <description>Reference 一份JVM参数 作为高级开发，你懂这些 JVM 参数吗 参数说明 jvm参数分为：标准参数(以-开始)与非标准参数; 可以通过java -help查看所有标</description>
+    </item>
+    
+    <item>
+      <title>jvm-01-java虚拟机</title>
+      <link>https://blog.fengjx.com/java/jvm/default/</link>
+      <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/jvm/default/</guid>
+      <description>JVM结构体系 类加载机制 JVM内存管理 垃圾收集 JVM参数配置 JVM监控工具 GC调优方法 GC调优案例分析 Java字节码</description>
+    </item>
+    
+    <item>
+      <title>jvm-02-内存区域划分</title>
+      <link>https://blog.fengjx.com/java/jvm/jvm-runtime-data-area/</link>
+      <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.fengjx.com/java/jvm/jvm-runtime-data-area/</guid>
+      <description>Reference 深入理解Java虚拟机（第2版） 第2章 一文了解JVM JVM源码分析之Metaspace解密 堆（Heap） JVM中最大的内存区域，被所有线程</description>
+    </item>
+    
+  </channel>
+</rss>
